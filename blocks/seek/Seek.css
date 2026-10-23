@@ -163,8 +163,17 @@
 
 /* pressed: it yields before it moves. A thing that gives
    under a click reads as having been pushed; a thing that
-   only expands reads as having been triggered. */
-.sek[data-press="true"] .sek-skin {
+   only expands reads as having been triggered.
+
+   `:active` carries the press itself — it starts on
+   pointerdown, while the object is still held. `data-press`
+   is the beat after the click, and the only arm keyboard
+   activation ever gets. The `:hover` arm is load bearing:
+   `:not()` counts toward specificity, so hover is (0,4,0) and
+   would otherwise win while the pointer is still down. */
+.sek:not([data-open="true"]) .sek-skin:active,
+.sek[data-press="true"] .sek-skin,
+.sek[data-press="true"] .sek-skin:hover {
   --sk: 0.93;
   transition: transform 160ms cubic-bezier(0.22, 1, 0.36, 1);}
 
