@@ -131,7 +131,7 @@ The playground puts every block and sound on one page.
 
 ## The rest of the bench
 
-This is a selection. [Bencho Pro](https://bencho.dev/pricing) opens all 130+ blocks and 130+ sounds, with full source, sound layering and downloads, an unlimited Bench to arrange them on, and the [Bencho MCP](https://bencho.dev/mcp) for Claude Code, Cursor and Codex. Everything added later comes with it.
+This is a selection. [Bencho Pro](https://bencho.dev/pricing) opens all 140+ blocks and 130+ sounds, with full source, sound layering and downloads, an unlimited Bench to arrange them on, and the [Bencho MCP](https://bencho.dev/mcp) for Claude Code, Cursor and Codex. Everything added later comes with it.
 
 ## Licence
 

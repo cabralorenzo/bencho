@@ -193,6 +193,9 @@ export function Watcher({
      straight ahead, glances somewhere every five seconds and
      blinks every two */
   idle = false,
+  /* the box it watches inside, as a selector; left unset it is the
+     card, stage or board it sits in */
+  within,
 }: {
   follow?: number;
   bounce?: number;
@@ -204,6 +207,7 @@ export function Watcher({
   eyeRound?: number;
   eyeHeight?: number;
   idle?: boolean;
+  within?: string;
 } = {}) {
   const still = stillness();
   const box = useRef<HTMLDivElement>(null);
@@ -321,7 +325,12 @@ export function Watcher({
       });
     };
 
+    /* ── it only runs while it can be seen ───────────────────
+       Off screen or in a background tab the loop stops; it starts
+       again the moment the ball comes back into view */
+    let seen = true;
     const tick = (now: number) => {
+      if (!seen || document.hidden) { raf = 0; prev = 0; return; }
       const dt = prev ? Math.min(2.5, (now - prev) / 16.67) : 1;
       prev = now;
       if (still) {
@@ -340,6 +349,11 @@ export function Watcher({
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
+    const resume = () => { if (!raf && seen && !document.hidden) raf = requestAnimationFrame(tick); };
+    const io = new IntersectionObserver(([e]) => { seen = e.isIntersecting; resume(); });
+    io.observe(el);
+    document.addEventListener("visibilitychange", resume);
+    const unwatch = () => { io.disconnect(); document.removeEventListener("visibilitychange", resume); };
 
     /* ── the face goes where you are ──────────────────────────
        A spot out along the pointer's direction, further the
@@ -353,7 +367,7 @@ export function Watcher({
        cursor crossing the page read as noise. The reach is
        measured against that card, so the eyes arrive at the rim
        as you arrive at its edge. */
-    const frame = el.closest<HTMLElement>(".bench-card, .dtl-block, .board, .sf-thumb") ?? el;
+    const frame = el.closest<HTMLElement>(within ?? ".bench-card, .dtl-block, .board, .sf-thumb") ?? el;
     const aim = (e: PointerEvent) => {
       const f = frame.getBoundingClientRect();
       if (e.clientX < f.left || e.clientX > f.right || e.clientY < f.top || e.clientY > f.bottom) {
@@ -390,6 +404,7 @@ export function Watcher({
       glance = window.setTimeout(look, 5000);
       return () => {
         cancelAnimationFrame(raf);
+        unwatch();
         window.clearTimeout(glance);
       };
     }
@@ -398,10 +413,11 @@ export function Watcher({
     document.documentElement.addEventListener("pointerleave", rest);
     return () => {
       cancelAnimationFrame(raf);
+      unwatch();
       window.removeEventListener("pointermove", aim);
       document.documentElement.removeEventListener("pointerleave", rest);
     };
-  }, [still, idle]);
+  }, [still, idle, within]);
 
   const s = clamp(size, 16, 180);
   const body = SHAPES[shape] ?? SHAPES.Ball;

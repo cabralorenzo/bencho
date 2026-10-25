@@ -77,5 +77,11 @@
 
 [data-theme="dark"] .logo-test .eyt-eye { fill: #fbfbfa; }
 
+.bench-lock-face .eyt { position: relative; width: 96px; height: 96px; }
+
+.bench-lock-face .eyt-body { fill: transparent; }
+
+.bench-lock-face .eyt-eye { fill: #fff; }
+
 @keyframes pet-caret {
   50% { opacity: 0; }}

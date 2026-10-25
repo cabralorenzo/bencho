@@ -163,8 +163,20 @@
 
 /* pressed: it yields before it moves. A thing that gives
    under a click reads as having been pushed; a thing that
-   only expands reads as having been triggered. */
-.sek[data-press="true"] .sek-skin {
+   only expands reads as having been triggered.
+
+   Two moments, one rule. `:active` is the button held down —
+   a click only fires on release, so without it there was
+   nothing under a finger that stayed. `data-press` is the 90ms
+   beat after the click (and after Enter or Space) before it
+   opens. Both carry the hover rule's own :not([data-open]) and
+   come after it, so they win on order at equal specificity:
+   written as `.sek[data-press] .sek-skin` they were one class
+   short, and a pointer still over the button — which is where
+   a pointer is when it clicks — kept the hover's 1.045 and the
+   squeeze never showed. Reported in cabralorenzo/bencho#5. */
+.sek:not([data-open="true"]) .sek-skin:active,
+.sek:not([data-open="true"])[data-press="true"] .sek-skin {
   --sk: 0.93;
   transition: transform 160ms cubic-bezier(0.22, 1, 0.36, 1);}
 
