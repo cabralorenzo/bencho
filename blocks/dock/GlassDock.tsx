@@ -3,6 +3,8 @@ import { Bookmark, Folder, House, Search, User } from "lucide-react";
 
 type Item = { key: string; label: string; Icon: typeof House };
 
+/* the dock's set; the icon bar (GlassIconBar.tsx) carries the same
+   five: they are the same navigation in two different materials */
 const DOCK: Item[] = [
   { key: "home", label: "Home", Icon: House },
   { key: "search", label: "Search", Icon: Search },

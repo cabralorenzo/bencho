@@ -1,9 +1,11 @@
 # Blocks
 
-44 free blocks. Each folder holds the component, its stylesheet and a README with its props.
+46 free blocks. Each folder holds the component, its stylesheet and a README with its props.
 
 | Block | Folder | Packages |
 | --- | --- | --- |
+| [Context meter](context-meter) | `context-meter/ContextMeter.tsx` | `framer-motion` |
+| [Slingshot](slingshot) | `slingshot/Slingshot.tsx` | `lucide-react` |
 | [ASCII wake](ascii-wake) | `ascii-wake/AsciiWake.tsx` | — |
 | [Card swap](card-swap) | `card-swap/CardSwap.tsx` | — |
 | [Rolling counter](rolling-counter) | `rolling-counter/Counter.tsx` | `lucide-react` |

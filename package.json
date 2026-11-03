@@ -2,7 +2,7 @@
   "name": "bencho-free",
   "private": true,
   "version": "1.0.0",
-  "description": "The free half of Bencho: 44 interactive React blocks and 24 synthesised interface sounds.",
+  "description": "The free half of Bencho: 46 interactive React blocks and 24 synthesised interface sounds.",
   "license": "MIT",
   "type": "module",
   "homepage": "https://bencho.dev",

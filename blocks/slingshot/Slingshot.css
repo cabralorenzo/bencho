@@ -1,0 +1,32 @@
+/* ══ Slingshot ════════════════════════════════════════════
+   lab/Slingshot.tsx. No frame: the band and the ball in the middle of
+   the card. The ball, the band and the aim are written by the component */
+.sls {
+  position: relative;
+  color: var(--fill-on, var(--ink, #17181a));
+  font-family: var(--font-ui);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;}
+
+.sls-svg { position: absolute; inset: 0; overflow: visible; pointer-events: none; }
+
+/* the socket, and the band it becomes: one wash, hugging the ball */
+.sls-band { fill: color-mix(in srgb, var(--fill-on, #17181a) 10%, transparent); }
+
+/* the sparks: the block's own ink; each carries its own fade */
+.sls-dust line { stroke: var(--fill-on, #17181a); stroke-linecap: round; }
+
+.sls-ball {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  background: var(--fill-on, #17181a);
+  color: var(--fill-slab, #fff);
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  transition: opacity 160ms ease;}
+
+.sls-arrow { display: block; }

@@ -2,6 +2,10 @@ import { StrictMode, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "../tokens.css";
 import "./playground.css";
+import { ContextMeter as B_context_meter } from "../blocks/context-meter/ContextMeter";
+import "../blocks/context-meter/ContextMeter.css";
+import { Slingshot as B_slingshot } from "../blocks/slingshot/Slingshot";
+import "../blocks/slingshot/Slingshot.css";
 import { AsciiWake as B_ascii_wake } from "../blocks/ascii-wake/AsciiWake";
 import "../blocks/ascii-wake/AsciiWake.css";
 import { CardSwap as B_card_swap } from "../blocks/card-swap/CardSwap";
@@ -93,6 +97,8 @@ import "../blocks/liq-create/Create.css";
 import { play, SOUND_NAMES } from "../sounds/sounds";
 
 const BLOCKS = [
+  { id: "context-meter", title: "Context meter", el: <B_context_meter /> },
+  { id: "slingshot", title: "Slingshot", el: <B_slingshot /> },
   { id: "ascii-wake", title: "ASCII wake", el: <B_ascii_wake /> },
   { id: "card-swap", title: "Card swap", el: <B_card_swap /> },
   { id: "rolling-counter", title: "Rolling counter", el: <B_rolling_counter /> },

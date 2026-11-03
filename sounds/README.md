@@ -43,4 +43,4 @@ Browsers only start audio after a user gesture, so call `play()` from a click, a
 
 Each sound is a short list of notes in `SOUNDS`. Change a number and you have a new sound; `schedule()` also renders into an `OfflineAudioContext` if you want a file.
 
-[Bencho Pro](https://bencho.dev/pricing) has 130+ more, layering and WAV downloads.
+[Bencho Pro](https://bencho.dev/pricing) has 140+ more, layering and WAV downloads.

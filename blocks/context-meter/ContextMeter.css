@@ -1,0 +1,242 @@
+/* ══ Context meter ════════════════════════════════════════
+   lab/ContextMeter.tsx. A slab card: a head, a rolling figure, a
+   field of dots filled column by column, chips for the kinds, and a
+   foot with the room left and Compact. Each kind is a strength of
+   the ink, strongest first; the empty room is a faint wash */
+.ctx {
+  --ctx-empty: color-mix(in srgb, var(--fill-on, #17181a) 8%, var(--fill-slab, #fff));
+  /* the cool half of the wheel only, rose round through blue to green:
+     no orange or yellow, so the set stays one family, but each step is
+     a clear jump in hue so no two kinds can be mistaken */
+  --k-sys: #ec4f8c;
+  --k-tools: #9a5cf6;
+  --k-files: #3d7ef5;
+  --k-chat: #1db4cc;
+  --k-mem: #2ccb7e;
+  /* 20 dots of 11 on a 3px gap, plus the padding */
+  width: 309px;
+  box-sizing: border-box;
+  padding: 16px;
+  border-radius: 20px;
+  background: var(--fill-slab, var(--card, #fff));
+  color: var(--fill-on, var(--ink, #17181a));
+  font-family: var(--font-ui);
+  user-select: none;
+  -webkit-user-select: none;}
+
+[data-stroke="on"] .ctx { box-shadow: 0 0 0 1px var(--pane-edge); }
+
+.ctx-head { display: flex; justify-content: space-between; align-items: center; }
+
+.ctx-title { font-size: 16px; line-height: 20px; font-weight: 500; letter-spacing: -0.01em; }
+
+.ctx-figure { display: flex; align-items: baseline; gap: 6px; margin: 12px 0 16px; }
+
+.ctx-num { position: relative; font-size: 30px; line-height: 32px; font-weight: 500; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+
+/* the odometer: each digit a wheel, a window one line tall */
+.ctx-roll { display: flex; line-height: 1; }
+
+.ctx-wheel { position: relative; display: inline-block; height: 1.15em; overflow: hidden; }
+
+.ctx-digit { display: block; line-height: 1.15em; }
+
+.ctx-sym { line-height: 1.15em; }
+
+/* the figure in words, for anyone not watching it roll */
+.ctx-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.ctx-of { font-size: 13px; color: color-mix(in srgb, var(--fill-on, #17181a) 52%, var(--fill-slab, #fff)); }
+
+/* the field: filled down each column, then across */
+.ctx-grid {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: center;}
+
+.ctx-dot {
+  display: block;
+  border-radius: 2px;
+  background: var(--ctx-empty);
+  transition: background-color 260ms ease, opacity 220ms ease, scale 260ms cubic-bezier(0.22, 1, 0.36, 1);}
+
+/* a dot changing kind never blends two colours: one solid colour grows
+   over the other, from nothing to the full dot. Filling, the new colour
+   grows in over the old; draining, the old colour shrinks away and leaves
+   the empty dot behind it */
+.ctx-dot[data-swap] { position: relative; }
+
+.ctx-dot[data-swap]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  /* short, so the whole swap is done by the sound's knock */
+  animation: 340ms cubic-bezier(0.34, 1.2, 0.64, 1) both;
+  animation-delay: inherit;}
+
+.ctx .ctx-dot[data-swap="fill"] { background: var(--was); }
+
+.ctx-dot[data-swap="fill"]::after { background: var(--now); animation-name: ctx-grow; }
+
+.ctx-dot[data-swap="drain"]::after { background: var(--was); animation-name: ctx-shrink; animation-timing-function: cubic-bezier(0.55, 0, 0.75, 0.4); animation-duration: 240ms; }
+
+/* the field gives under the press, the bar's squeeze in both axes:
+   down to its floor at 38% of 760, on the sound's knock, a touch past
+   on the way back. a/b flips per press so the keyframes restart */
+.ctx-grid[data-wave="a"] { animation: ctx-press-a 760ms cubic-bezier(0.33, 0, 0.2, 1) both; }
+
+.ctx-grid[data-wave="b"] { animation: ctx-press-b 760ms cubic-bezier(0.33, 0, 0.2, 1) both; }
+
+/* mono: the kinds as strengths of the ink, strongest first */
+.ctx[data-mono] {
+  --k-sys: var(--fill-on, #17181a);
+  --k-tools: color-mix(in srgb, var(--fill-on, #17181a) 76%, var(--fill-slab, #fff));
+  --k-files: color-mix(in srgb, var(--fill-on, #17181a) 54%, var(--fill-slab, #fff));
+  --k-chat: color-mix(in srgb, var(--fill-on, #17181a) 36%, var(--fill-slab, #fff));
+  --k-mem: color-mix(in srgb, var(--fill-on, #17181a) 22%, var(--fill-slab, #fff));}
+
+.ctx-dot[data-kind="sys"] { background: var(--k-sys); }
+
+.ctx-dot[data-kind="tools"] { background: var(--k-tools); }
+
+.ctx-dot[data-kind="files"] { background: var(--k-files); }
+
+.ctx-dot[data-kind="chat"] { background: var(--k-chat); }
+
+.ctx-dot[data-kind="mem"] { background: var(--k-mem); }
+
+/* the bar style: one stacked bar, a segment per kind and the room
+   left as a faint tail; widths ease, so Compact slides the chat down */
+.ctx-bar { display: flex; gap: 3px; height: 40px; }
+
+.ctx-seg {
+  display: block;
+  min-width: 3px;
+  flex-basis: 0;
+  border-radius: 6px;
+  /* the width is a real flex-grow transition, so the corners stay
+     true; slow out of the gate and long to settle, a fold not a cut */
+  transition:
+    flex-grow 820ms cubic-bezier(0.65, 0, 0.2, 1),
+    opacity 220ms ease;}
+
+/* the squeeze: the chat gives as it folds, and a softer give runs
+   down the bar after it. Two names so each press restarts it */
+.ctx-bar[data-wave="a"] .ctx-seg:not(.ctx-seg-room) { animation: ctx-give-a 760ms var(--ctx-wave, 0ms) cubic-bezier(0.33, 0, 0.2, 1) both; }
+
+.ctx-bar[data-wave="b"] .ctx-seg:not(.ctx-seg-room) { animation: ctx-give-b 760ms var(--ctx-wave, 0ms) cubic-bezier(0.33, 0, 0.2, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ctx-seg { transition-duration: 1ms; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ctx-bar[data-wave] .ctx-seg { animation: none; }
+}
+
+.ctx-seg[data-kind="sys"] { background: var(--k-sys); }
+
+.ctx-seg[data-kind="tools"] { background: var(--k-tools); }
+
+.ctx-seg[data-kind="files"] { background: var(--k-files); }
+
+.ctx-seg[data-kind="chat"] { background: var(--k-chat); }
+
+.ctx-seg[data-kind="mem"] { background: var(--k-mem); }
+
+.ctx-seg-room { background: color-mix(in srgb, var(--fill-on, #17181a) 8%, var(--fill-slab, #fff)); }
+
+.ctx-seg[data-dim] { opacity: 0.22; }
+
+/* pointing at a kind: it holds, the rest fall back */
+/* only the fade: growing the lit dots ate into the 3px gaps and the
+   grid stopped being an even grid */
+.ctx-dot[data-dim] { opacity: 0.22; }
+
+.ctx-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+
+.ctx-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--fill-on, #17181a) 6%, var(--fill-slab, #fff));
+  color: var(--fill-on, #17181a);
+  font: inherit;
+  font-size: 13px;
+  cursor: default;
+  transition: background-color 160ms ease, scale 260ms cubic-bezier(0.34, 1.56, 0.64, 1);}
+
+/* the chip gives a little under the pointer; keyed to data-on rather than
+   :hover, so hovering a kind in the field presses its chip too */
+.ctx-chip[data-on] { background: color-mix(in srgb, var(--fill-on, #17181a) 12%, var(--fill-slab, #fff)); scale: 0.975; }
+
+.ctx-chip:focus-visible { outline: 2px solid var(--signal, #2231dd); outline-offset: 1px; }
+
+.ctx-swatch { display: block; width: 8px; height: 8px; border-radius: 2px; }
+
+.ctx-swatch[data-kind="sys"] { background: var(--k-sys); }
+
+.ctx-swatch[data-kind="tools"] { background: var(--k-tools); }
+
+.ctx-swatch[data-kind="files"] { background: var(--k-files); }
+
+.ctx-swatch[data-kind="chat"] { background: var(--k-chat); }
+
+.ctx-swatch[data-kind="mem"] { background: var(--k-mem); }
+
+.ctx-act {
+  height: 28px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  /* on a light card a solid black pill shouts over the meter it acts
+     on: a firm grey wash with ink words instead. A dark card keeps
+     the solid pill, where white on near-black reads calm */
+  background: color-mix(in srgb, var(--fill-on, #17181a) 10%, var(--fill-slab, #fff));
+  color: var(--fill-on, #17181a);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: scale 240ms cubic-bezier(0.22, 1, 0.36, 1), background-color 220ms ease, color 220ms ease;}
+
+[data-fill="dark"] .ctx-act:not([data-quiet]) { background: var(--fill-on, #17181a); color: var(--fill-slab, #fff); }
+
+/* Undo is the way back, not the action: quieter than Compact in either
+   fill — a fainter wash, and on a light card muted words */
+.ctx-act[data-quiet] {
+  background: color-mix(in srgb, var(--fill-on, #17181a) 5%, var(--fill-slab, #fff));
+  color: color-mix(in srgb, var(--fill-on, #17181a) 64%, var(--fill-slab, #fff));}
+
+[data-fill="dark"] .ctx-act[data-quiet] {
+  background: color-mix(in srgb, var(--fill-on, #17181a) 8%, var(--fill-slab, #fff));
+  color: var(--fill-on, #17181a);}
+
+.ctx-act:active { scale: 0.96; }
+
+.ctx-act:focus-visible { outline: 2px solid var(--signal, #2231dd); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ctx-dot { transition-duration: 1ms; transition-delay: 0ms !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ctx-grid[data-wave] { animation: none; }
+}
+
+@keyframes ctx-grow { from { scale: 0; } to { scale: 1; } }
+
+@keyframes ctx-press-a { 0%, 100% { scale: 1; } 38% { scale: 0.965; } 72% { scale: 1.01; } }
+
+@keyframes ctx-press-b { 0%, 100% { scale: 1; } 38% { scale: 0.965; } 72% { scale: 1.01; } }
+
+@keyframes ctx-shrink { from { scale: 1; } to { scale: 0; } }
+
+@keyframes ctx-give-a { 0%, 100% { scale: 1 1; } 38% { scale: 1 var(--ctx-give, 0.93); } 72% { scale: 1 1.03; } }
+
+@keyframes ctx-give-b { 0%, 100% { scale: 1 1; } 38% { scale: 1 var(--ctx-give, 0.93); } 72% { scale: 1 1.03; } }
