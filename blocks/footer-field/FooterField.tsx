@@ -108,8 +108,12 @@ export function FooterField({
       fg.clearRect(0, 0, field.width, field.height);
       fg.setTransform(ratio, 0, 0, ratio, 0, 0);
       fg.fillStyle = ink;
-      fg.beginPath();
       const r = Math.min(cw, ch) * 0.46;
+      /* one path for every dot, as the field has always been drawn. A
+         path per row fills several times faster, but on a GPU canvas
+         the small dots then come out with slightly different edges, so
+         it stays one path and is drawn only when it is needed */
+      fg.beginPath();
       for (let j = 0; j < rows; j++) {
         for (let i = 0; i < cols; i++) {
           const m = mask[j * cols + i];
@@ -298,16 +302,35 @@ export function FooterField({
     const leave = () => { inside = false; lx = NaN; run(); };
     const press = (e: PointerEvent) => { rings.push({ ...where(e), t: 0 }); run(); };
 
-    build();
-    /* a resize rebuilds the grid; the first call, on observe, is the size we have */
-    const ro = new ResizeObserver(() => {
-      if (el.clientWidth === w && el.clientHeight === h && Math.min(2, window.devicePixelRatio || 1) === ratio) return;
+    /* nothing is drawn until the footer is close to the screen, and a
+       resize or theme flip while it is away waits until it is back */
+    let onScreen = false, stale = true;
+    const sync = () => {
+      if (!onScreen || !stale) return;
+      stale = false;
       build();
       paint();
+    };
+    const AHEAD = 300;
+    const io = new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; sync(); }, { rootMargin: `${AHEAD}px 0px` });
+    io.observe(el);
+    /* already in view: drawn now rather than a frame later */
+    const at = el.getBoundingClientRect();
+    onScreen = at.bottom > -AHEAD && at.top < window.innerHeight + AHEAD;
+    sync();
+    /* a resize rebuilds the grid; the first call, on observe, is the size we have */
+    const ro = new ResizeObserver(() => {
+      if (!stale && el.clientWidth === w && el.clientHeight === h && Math.min(2, window.devicePixelRatio || 1) === ratio) return;
+      stale = true;
+      sync();
     });
     ro.observe(el);
     /* a theme flip changes the ink, so the layer is drawn again */
-    const repaint = () => { layer(); paint(); };
+    const repaint = () => {
+      if (stale || !onScreen) { stale = true; sync(); return; }
+      layer();
+      paint();
+    };
     const mo = new MutationObserver(repaint);
     mo.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
     const scheme = matchMedia("(prefers-color-scheme: dark)");
@@ -319,6 +342,7 @@ export function FooterField({
     }
     return () => {
       cancelAnimationFrame(raf);
+      io.disconnect();
       ro.disconnect();
       mo.disconnect();
       scheme.removeEventListener("change", repaint);
