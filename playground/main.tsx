@@ -94,6 +94,8 @@ import { Slosh as B_slosh } from "../blocks/slosh/Slosh";
 import "../blocks/slosh/Slosh.css";
 import { Create as B_liq_create } from "../blocks/liq-create/Create";
 import "../blocks/liq-create/Create.css";
+import { FooterField } from "../blocks/footer-field/FooterField";
+import "../blocks/footer-field/FooterField.css";
 import { play, SOUND_NAMES } from "../sounds/sounds";
 
 const BLOCKS = [
@@ -171,6 +173,10 @@ function App() {
           </section>
         ))}
       </main>
+      {/* full width, as at the foot of bencho.dev, so a wide window can be tried */}
+      <footer className="pg-foot">
+        <FooterField />
+      </footer>
     </div>
   );
 }

@@ -8,3 +8,4 @@ body { margin: 0; }
 .pg-card { background: var(--card); border-radius: 24px; padding: 16px; display: grid; gap: 12px; }
 .pg-stage { min-height: 380px; display: grid; place-items: center; overflow: hidden; }
 .pg-card a { color: var(--ink-3); font-size: 13px; text-decoration: none; }
+.pg-foot { margin: 48px -24px -32px; }
