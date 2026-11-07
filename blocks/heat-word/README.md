@@ -29,7 +29,7 @@ Every prop is optional and defaults to what the block ships with on bencho.dev.
 | `colors` | Colors | `"Neon"` | `"Neon"`, `"Fire"`, `"Sea"`, `"Pop"` |  |
 | `heat` | Heat | `60` | 0–100 | how much the cursor melts the letters |
 | `area` | Area | `50` | 0–100 | how big the patch under the cursor is |
-| `soft` | Softness | `50` | 0–100 | how far the heat spreads from each stroke |
+| `soft` | Softness | `40` | 0–100 | how far the heat spreads from each stroke |
 
 ---
 

@@ -25,10 +25,10 @@ Every prop is optional and defaults to what the block ships with on bencho.dev.
 
 | Prop | Knob | Default | Range | What it does |
 | --- | --- | --- | --- | --- |
-| `corner` | Corner | `32` | 0–32 px |  |
+| `corner` | Corner | `24` | 0–24 px |  |
 | `give` | Give | `50` | 0–100 | how far it leans toward the cursor |
-| `spring` | Spring | `50` | 0–100 | how the width settles |
-| `width` | Width | `270` | 240–400 px | the field at rest |
+| `spring` | Spring | `20` | 0–100 | how the width settles |
+| `width` | Width | `240` | 200–360 px | the field at rest |
 
 ## Tokens it reads
 

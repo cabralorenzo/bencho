@@ -2,6 +2,8 @@ import { StrictMode, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "../tokens.css";
 import "./playground.css";
+import { Stack as B_card_stack } from "../blocks/card-stack/Stack";
+import "../blocks/card-stack/Stack.css";
 import { ContextMeter as B_context_meter } from "../blocks/context-meter/ContextMeter";
 import "../blocks/context-meter/ContextMeter.css";
 import { Slingshot as B_slingshot } from "../blocks/slingshot/Slingshot";
@@ -97,6 +99,7 @@ import "../blocks/liq-create/Create.css";
 import { play, SOUND_NAMES } from "../sounds/sounds";
 
 const BLOCKS = [
+  { id: "card-stack", title: "Card stack", el: <B_card_stack /> },
   { id: "context-meter", title: "Context meter", el: <B_context_meter /> },
   { id: "slingshot", title: "Slingshot", el: <B_slingshot /> },
   { id: "ascii-wake", title: "ASCII wake", el: <B_ascii_wake /> },

@@ -27,7 +27,7 @@ Every prop is optional and defaults to what the block ships with on bencho.dev.
 
 | Prop | Knob | Default | Range | What it does |
 | --- | --- | --- | --- | --- |
-| `pen` | Pen | `50` | 0–100 | how heavy the nib is |
+| `pen` | Pen | `40` | 0–100 | how heavy the nib is |
 | `ink` | Ink | `"Black"` | `"Black"`, `"Blue"` |  |
 | `smooth` | Smoothing | `50` | 0–100 | how much of the hand's wobble is taken out |
 | `rewind` | Rewind | `50` | 0–100 | how fast Clear un-draws |

@@ -365,17 +365,12 @@ const WINDOWS = [
    have to agree. Generating them separately is how a fill ends
    up a pixel off the line it is under, and how a scrub dot
    ends up beside the curve instead of on it. */
-function curve(vals: number[], w: number, h: number, pad: number) {
-  const lo = Math.min(...vals);
-  const hi = Math.max(...vals);
-  const pt = vals.map((v, i) => ({
-    x: (i / (vals.length - 1)) * w,
-    y: h - pad - ((v - lo) / (hi - lo || 1)) * (h - pad * 2),
-  }));
+type Pt = { x: number; y: number };
 
-  /* the control points, kept rather than thrown away with the
-     string. `at` needs exactly these — see below. */
-  const seg = pt.slice(0, -1).map((p1, i) => {
+/* the control points, kept rather than thrown away with the
+   string. `at` needs exactly these — see below. */
+function segments(pt: Pt[]) {
+  return pt.slice(0, -1).map((p1, i) => {
     const p0 = pt[i - 1] ?? p1;
     const p2 = pt[i + 1];
     const p3 = pt[i + 2] ?? p2;
@@ -388,11 +383,27 @@ function curve(vals: number[], w: number, h: number, pad: number) {
       c2: { x: p2.x - (p3.x - p1.x) / 6, y: p2.y - (p3.y - p1.y) / 6 },
     };
   });
+}
 
+/* the path string through a set of points — the line at rest,
+   and every frame of the morph between two lines */
+function trace(pt: Pt[]) {
   let d = `M${pt[0].x.toFixed(2)} ${pt[0].y.toFixed(2)}`;
-  for (const g of seg) {
+  for (const g of segments(pt)) {
     d += ` C${g.c1.x.toFixed(2)} ${g.c1.y.toFixed(2)} ${g.c2.x.toFixed(2)} ${g.c2.y.toFixed(2)} ${g.p2.x.toFixed(2)} ${g.p2.y.toFixed(2)}`;
   }
+  return d;
+}
+
+function curve(vals: number[], w: number, h: number, pad: number) {
+  const lo = Math.min(...vals);
+  const hi = Math.max(...vals);
+  const pt = vals.map((v, i) => ({
+    x: (i / (vals.length - 1)) * w,
+    y: h - pad - ((v - lo) / (hi - lo || 1)) * (h - pad * 2),
+  }));
+  const seg = segments(pt);
+  const d = trace(pt);
 
   /* ── anywhere along the line, not just at a reading ────────
      The same cubic the path string is made of, evaluated at a
@@ -421,6 +432,12 @@ function curve(vals: number[], w: number, h: number, pad: number) {
    18 was the tightest radius on the bench and it made this the
    one block that looked clipped rather than rounded. */
 const CORNER = 20;
+
+/* the morph between two lines: how many places along each are
+   mixed, and how long it takes — the bench's `slow`, a size
+   change, on its out curve */
+const MORPH = 48;
+const MORPH_MS = 420;
 
 /* ── the room the rebound compresses into ──────────────────
    Negative padding does not exist, so the card carries this
@@ -601,7 +618,65 @@ export function Balance({
   const change = value - series[0];
   const up = change >= 0;
   const pct = (change / series[0]) * 100;
-  const [whole, cents] = split(value);
+
+  /* ── A NEW WINDOW OR A NEW READING IS A MORPH ────────────
+     It was a cut: press 4H and the line was simply another
+     line, the change and the percentage simply other numbers.
+     Now the old line turns into the new one and the figures
+     count across to theirs, on ONE number — `m`, 0 to 1 over
+     420ms on the bench's out curve — so the line and the
+     figures cannot arrive at different times.
+
+     The two lines have different numbers of readings (5, 17,
+     34), so neither is morphed point for point: both are
+     sampled at MORPH places along their own curves, those are
+     mixed, and the mix is traced with the same Catmull-Rom as
+     the line at rest. At m = 1 the real path is drawn again,
+     so the line you scrub is exactly the line it always was.
+
+     Only at rest. A scrub reads the target directly — the
+     number under the finger is never a frame of an
+     animation. Nothing runs between changes: the frame loop
+     exists for 420ms and then stops. */
+  const c = curve(series, 100, 40, 4);
+  const goal = {
+    pts: Array.from({ length: MORPH }, (_, i) => c.at((i / (MORPH - 1)) * last)),
+    value, change, pct,
+  };
+  const key = `${read}:${win}`;
+  const [m, setM] = useState(1);
+  const from = useRef<typeof goal | null>(null);
+  const onScreen = useRef<typeof goal | null>(null);
+  const seenKey = useRef(key);
+  useLayoutEffect(() => {
+    if (seenKey.current === key) return;
+    seenKey.current = key;
+    if (still || !onScreen.current) return;
+    /* from wherever it is NOW — pressing mid-morph turns the
+       line round instead of snapping it back first */
+    from.current = onScreen.current;
+    const t0 = performance.now();
+    let raf = 0;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - t0) / MORPH_MS);
+      setM(1 - (1 - t) ** 4);
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    setM(0);
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [key, still]);
+  const morphing = m < 1 && scrub === null && !!from.current;
+  const f = from.current;
+  const show = morphing && f ? {
+    pts: goal.pts.map((p, i) => ({ x: mix(f.pts[i].x, p.x, m), y: mix(f.pts[i].y, p.y, m) })),
+    value: mix(f.value, value, m),
+    change: mix(f.change, change, m),
+    pct: mix(f.pct, pct, m),
+  } : goal;
+  /* what is on screen, so the next change starts from it */
+  useLayoutEffect(() => { onScreen.current = show; });
+  const [whole, cents] = split(show.value);
 
   /* ── the gesture ─────────────────────────────────────────
      Two bugs lived here once and both were the kind that make
@@ -746,10 +821,10 @@ export function Balance({
   /* the ring winds with the finger; while it works the whole
      group turns instead, on its own clock */
   const turn = phase === "work" ? 0 : p * 220;
-  const c = curve(series, 100, 40, 4);
   /* on the curve at a fractional index, not at one of the
-     readings — see the note on `at` in `curve` */
-  const dot = c.at(shown);
+     readings — see the note on `at` in `curve`. Mid-morph it
+     rides the end of the line being drawn. */
+  const dot = morphing ? show.pts[MORPH - 1] : c.at(shown);
 
   return (
     <div
@@ -864,7 +939,7 @@ export function Balance({
               back — when. Same shape either way, so the row
               does not reflow as you scrub across it. */}
           <p className="bal-move" data-up={up}>
-            {signed(change)} · {Math.abs(pct).toFixed(1)}%
+            {signed(show.change)} · {Math.abs(show.pct).toFixed(1)}%
             <span className="bal-when">
               {scrub === null ? WINDOWS[win].span : clock(offset + shown, day.length)}
             </span>
@@ -907,7 +982,7 @@ export function Balance({
                 dot, and why the dot is a sibling rather than a
                 circle. */}
             <svg className="bal-line" viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true">
-              <path className="bal-curve" d={c.d} />
+              <path className="bal-curve" d={morphing ? trace(show.pts) : c.d} />
             </svg>
             {/* only while reading: a permanent guide is a second
                 axis nobody asked for */}

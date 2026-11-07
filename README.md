@@ -2,7 +2,7 @@
 
 <p align="center"><a href="https://bencho.dev"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/readme/brand-dark.png"><img src="assets/readme/brand.png" alt="bencho.dev" width="240"></picture></a></p>
 
-<p align="center">Interactive React blocks and interface sounds.<br><strong>46 blocks and 24 sounds</strong>, free and MIT licensed.</p>
+<p align="center">Interactive React blocks and interface sounds.<br><strong>47 blocks and 24 sounds</strong>, free and MIT licensed.</p>
 
 <p align="center">
   <a href="https://bencho.dev"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/readme/pill-blocks-dark.svg"><img src="assets/readme/pill-blocks.svg" alt="Blocks" height="34"></picture></a>
@@ -66,6 +66,7 @@ The playground puts every block and sound on one page.
 
 ### Hover
 
+- **[Card stack](blocks/card-stack)** — A small deck of photos that fans out as you reach it. Hover to draw a card up, click one to flip it into the middle, and click away to put it back on top. [Try it](https://bencho.dev/blocks/card-stack)
 - **[Context meter](blocks/context-meter)** — A context window as one stacked bar, or a field of dots. Point at a kind to light it; Compact squeezes the chat down with a sound to match. [Try it](https://bencho.dev/blocks/context-meter)
 - **[ASCII wake](blocks/ascii-wake)** — A cube drawn in ink dots: the pointer drags a wake of characters through it that thicken under the hand and cool back to dots behind it, and a press sends a ring out. [Try it](https://bencho.dev/blocks/ascii-wake)
 - **[Stacked bars](blocks/stacked-bars)** — A month of visits as stacked bars; run along them and one day is ringed while a tooltip glides beside it, and Day / Week regrows the bars. [Try it](https://bencho.dev/blocks/stacked-bars)
@@ -133,7 +134,7 @@ The playground puts every block and sound on one page.
 
 ## The rest of the bench
 
-This is a selection. [Bencho Pro](https://bencho.dev/pricing) opens all 150+ blocks and 140+ sounds, with full source, sound layering and downloads, an unlimited Bench to arrange them on, and the [Bencho MCP](https://bencho.dev/mcp) for Claude Code, Cursor and Codex. Everything added later comes with it.
+This is a selection. [Bencho Pro](https://bencho.dev/pricing) opens all 160+ blocks and 140+ sounds, with full source, sound layering and downloads, an unlimited Bench to arrange them on, and the [Bencho MCP](https://bencho.dev/mcp) for Claude Code, Cursor and Codex. Everything added later comes with it.
 
 ## Licence
 

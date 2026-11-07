@@ -172,23 +172,25 @@ const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v
    header, it is the whole component, sitting alone on a card
    with 96px of frame around it. At 44 the shut state read as a
    small button somebody had left in the middle of a large
-   card. 60 is the size of the thing itself rather than the
-   size it would be inside something else.
+   card. It went to 64 for that, and back down to 48 on
+   2026-11-07: at 64 the open field was a slab next to every
+   other pill on the bench, which sit around 36–48.
 
    The stylesheet reads this through --shut rather than
    repeating it: the skin's height and the closed width are the
    same number by definition, and two places holding it is two
    places to get it wrong. */
-const SHUT = 64;
+const SHUT = 48;
 /* the lens, and its inset. See the note above — this number
    is doing two jobs and they agree by construction.
 
-   28, measured against the rest of the bench rather than
+   20, measured against the rest of the bench rather than
    picked. Every round icon button here sits between 0.44 and
    0.50 of its button — .gdock-item 20/44, .bar-tool 17/38,
    .gnav-item 17/38, the nav's own 18/36 — and this button is
-   64 across, so 28 puts it at 0.44, in with the others. 18
-   was 0.28 and read as a small mark in a large circle.
+   48 across, so 20 puts it at 0.42, in with the others (and
+   on the 20 step icons snap to). 18 on a 64 was 0.28 and read
+   as a small mark in a large circle.
 
    The STROKE is independent of this, which is the part I got
    wrong twice. The svg is an 18-unit viewBox, so a
@@ -197,12 +199,12 @@ const SHUT = 64;
    the same 0.111. `stroke-width: 2` therefore matches the
    bench at any LENS, and resizing the icon does not disturb
    it. */
-const LENS = 28;
+const LENS = 20;
 const INSET = (SHUT - LENS) / 2;
 
-/* the field's corner. 32 is half of its 64px height, which is
+/* the field's corner. 24 is half of its 48px height, which is
    the circle it is when shut and the pill it is when open. */
-const CORNER = 32;
+const CORNER = 24;
 
 /* the resting field, wide screen and narrow. See the note on
    the `width` prop for why there are two.
@@ -213,14 +215,14 @@ const CORNER = 32;
    as big, which is a different component rather than a legible
    one. 280 lands at 54. The move that was actually wanted is
    the one you notice without being able to name it. */
-const WIDE = 270; // + its 26px of frame fits the 300 standard block width
-const SNUG = 240;
+const WIDE = 240; // + its 26px of frame: 266, inside the 300 standard block width
+const SNUG = 220;
 
 export function Seek({
   /* how far it leans toward the cursor, 0..100 */
   give = 50,
   /* how the width settles, 0..100 */
-  spring = 50,
+  spring = 20,
   /* The field's resting width, px. Back to 320 from 380, and
      that is what makes the BUTTON bigger rather than what makes
      the component smaller: the wall fits a card's contents by
@@ -246,7 +248,7 @@ export function Seek({
      is a setting the component was drawn for rather than a
      number invented for one screen. */
   width,
-  /* the field's own corner, 0..32 */
+  /* the field's own corner, 0..24 */
   corner = CORNER,
 }: {
   give?: number;

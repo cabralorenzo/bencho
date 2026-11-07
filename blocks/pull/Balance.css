@@ -243,7 +243,10 @@
    under it already carries 8px of its own for the squash —
    4 here lands the tabs 12 from the bottom edge, the same as
    they sit from either side */
-.bal-sheet { padding: 24px 12px 4px; }
+/* 16 on every side, the card padding the rest of the bench uses.
+   It was 24 over the figure and 12 everywhere else (the bottom
+   is 8 here plus the 8 of rebound room the card carries) */
+.bal-sheet { padding: 16px 16px 8px; }
 
 .bal-sum {
   margin: 0;

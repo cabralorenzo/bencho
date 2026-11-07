@@ -219,7 +219,9 @@ export function FoldingBill({
        draws at a lower density without antialiasing, solves the
        sheet in fewer passes, lets the flutter die away a few seconds
        after the last touch, and stops the loop entirely once the
-       sheet is still. A touch wakes it. */
+       sheet is still. A touch wakes it. A desktop keeps its density
+       and passes but sleeps the same way, 6s after the cursor last
+       crossed the bill; hovering it wakes it. */
     const light = window.matchMedia("(pointer: coarse), (max-width: 760px)").matches;
     const renderer = new THREE.WebGLRenderer({ antialias: !light, alpha: true });
     renderer.setPixelRatio(Math.min(devicePixelRatio, light ? 1.25 : 2));
@@ -425,6 +427,9 @@ export function FoldingBill({
         /* read by the wall card: only the bill itself is the block,
            the empty canvas round it is the card's to open */
         cv.dataset.ink = String(on);
+        /* a cursor over the bill keeps it awake, and wakes it if it
+           had gone still: the flutter comes back under the hand */
+        if (on) { touched = performance.now(); calm = 0; wake(); }
       }
     };
     const up = (e: PointerEvent) => {
@@ -447,8 +452,11 @@ export function FoldingBill({
     let clock = 0;
     const H = 1 / 120;
     const PASSES = light ? 9 : 16;
-    /* when a hand last moved the sheet; the flutter and the loop
-       both answer to it on a phone */
+    /* when a hand last moved the sheet, or a cursor last crossed it;
+       the flutter and the loop both answer to it. A phone lets the
+       flutter go after 2s, a desktop after 6 — there it is what you
+       see while reading the wall, so it gets longer to be seen */
+    const GRACE = light ? 2 : 6;
     let touched = performance.now();
     let flutter = 1;
     let calm = 0;
@@ -509,7 +517,7 @@ export function FoldingBill({
       dress();
       if (held >= 0) touched = now;
       const idle = (now - touched) / 1000;
-      if (light) flutter = Math.max(0, Math.min(1, 1 - (idle - 2) / 1.5));
+      flutter = Math.max(0, Math.min(1, 1 - (idle - GRACE) / 1.5));
       if (still) flutter = 0;
       const n = Math.max(1, Math.round(dt / H));
       for (let s = 0; s < n; s++) step();
@@ -522,10 +530,12 @@ export function FoldingBill({
       geo.computeVertexNormals();
       geo.computeBoundingSphere();
       renderer.render(scene, camera);
-      /* asleep: on a phone once the flutter is gone, anywhere under
-         reduced motion; the last frame drawn stays on the canvas */
-      const sleep = (light || still) && flutter === 0 && calm > 20;
-      if (seen && !(light || still) || seen && !sleep) raf = requestAnimationFrame(frame);
+      /* asleep once the flutter is gone and the sheet has settled, on
+         every device; the last frame drawn stays on the canvas. It ran
+         forever on a desktop and was the costliest block on the wall:
+         ~37% of the main thread while nobody touched it (2026-11-07) */
+      const sleep = flutter === 0 && calm > 20;
+      if (seen && !sleep) raf = requestAnimationFrame(frame);
       else running = false;
     };
     const wake = () => {
