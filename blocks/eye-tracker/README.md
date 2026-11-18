@@ -6,7 +6,13 @@ Two eyes on a soft cube that turn to follow your cursor around the block.
 
 ## Use it
 
-Copy `Watcher.tsx` and `Watcher.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/eye-tracker.json
+```
+
+Or by hand: copy `Watcher.tsx` and `Watcher.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 No packages beyond React.
 

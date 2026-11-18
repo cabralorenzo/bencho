@@ -6,7 +6,13 @@ Switch the crop between 4:3, 1:1 and 3:4, keeping the same area each time.
 
 ## Use it
 
-Copy `Aspect.tsx` and `Aspect.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/aspect.json
+```
+
+Or by hand: copy `Aspect.tsx` and `Aspect.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 No packages beyond React.
 

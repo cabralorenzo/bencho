@@ -6,7 +6,13 @@ Assign people from a list and their faces stack up in the pill.
 
 ## Use it
 
-Copy `Picker.tsx` and `Picker.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/picker.json
+```
+
+Or by hand: copy `Picker.tsx` and `Picker.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install framer-motion lucide-react

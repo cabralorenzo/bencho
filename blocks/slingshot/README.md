@@ -6,7 +6,13 @@ Pull the ball back and the band stretches, clicks and trembles at its limit; let
 
 ## Use it
 
-Copy `Slingshot.tsx` and `Slingshot.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/slingshot.json
+```
+
+Or by hand: copy `Slingshot.tsx` and `Slingshot.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install lucide-react

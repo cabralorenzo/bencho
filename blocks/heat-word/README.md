@@ -6,7 +6,13 @@ Dots that melt into a heat map under your cursor; press for the next shape.
 
 ## Use it
 
-Copy `HeatWord.tsx` and `HeatWord.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/heat-word.json
+```
+
+Or by hand: copy `HeatWord.tsx` and `HeatWord.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 No packages beyond React.
 

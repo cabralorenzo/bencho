@@ -6,7 +6,13 @@ Flip the arrow to reverse the swap; tap a coin to pick another.
 
 ## Use it
 
-Copy `Swap.tsx` and `Swap.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/asset-swap.json
+```
+
+Or by hand: copy `Swap.tsx` and `Swap.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install framer-motion lucide-react

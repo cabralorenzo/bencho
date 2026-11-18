@@ -6,7 +6,13 @@ A live timer in a black pill: press it to grow into the full activity, and back 
 
 ## Use it
 
-Copy `Island.tsx` and `Island.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/dynamic-island.json
+```
+
+Or by hand: copy `Island.tsx` and `Island.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install framer-motion lucide-react

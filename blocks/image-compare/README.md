@@ -6,7 +6,13 @@ Drag the line to compare two pictures; flick it and it glides to the edge.
 
 ## Use it
 
-Copy `Compare.tsx` and `Compare.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/image-compare.json
+```
+
+Or by hand: copy `Compare.tsx` and `Compare.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 No packages beyond React.
 

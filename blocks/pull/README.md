@@ -6,7 +6,13 @@ Pull the card down and it stretches; let go past the line to refresh.
 
 ## Use it
 
-Copy `Balance.tsx` and `Balance.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/pull.json
+```
+
+Or by hand: copy `Balance.tsx` and `Balance.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 No packages beyond React.
 

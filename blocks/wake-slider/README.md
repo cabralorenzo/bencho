@@ -6,7 +6,13 @@ A range made of thin bars with no thumb; drag fast and the bars you sweep past s
 
 ## Use it
 
-Copy `WakeSlider.tsx` and `WakeSlider.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/wake-slider.json
+```
+
+Or by hand: copy `WakeSlider.tsx` and `WakeSlider.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 No packages beyond React.
 

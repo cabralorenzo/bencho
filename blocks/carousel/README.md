@@ -6,7 +6,13 @@ Cards on a turntable that drift, lean under your pointer and swipe round.
 
 ## Use it
 
-Copy `Carousel.tsx` and `Carousel.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/carousel.json
+```
+
+Or by hand: copy `Carousel.tsx` and `Carousel.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 No packages beyond React.
 

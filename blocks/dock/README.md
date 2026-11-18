@@ -6,7 +6,13 @@ A dock whose icons swell toward your cursor, the nearest growing most.
 
 ## Use it
 
-Copy `GlassDock.tsx` and `GlassDock.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/dock.json
+```
+
+Or by hand: copy `GlassDock.tsx` and `GlassDock.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install lucide-react

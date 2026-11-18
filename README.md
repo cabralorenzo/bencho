@@ -21,7 +21,15 @@
 
 ## Take a block
 
-Each block is a folder: the component, its stylesheet, and a README listing its props.
+**With shadcn.** Every block is in Bencho's shadcn registry, so one command adds it with its stylesheet, its packages and the colours it reads (prefixed `--bencho-`, so your theme is untouched; dark mode follows `.dark`):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/like.json
+```
+
+The full list is [`https://bencho.dev/r/registry.json`](https://bencho.dev/r/registry.json), and each block's README has its own command.
+
+**By hand.** Each block is a folder: the component, its stylesheet, and a README listing its props.
 
 ```bash
 cp -r blocks/like src/components/like

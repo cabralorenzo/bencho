@@ -6,7 +6,13 @@ Tick a task and the box fills, the tick draws in and the words strike out.
 
 ## Use it
 
-Copy `Checklist.tsx` and `Checklist.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/checklist.json
+```
+
+Or by hand: copy `Checklist.tsx` and `Checklist.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install framer-motion

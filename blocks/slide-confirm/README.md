@@ -6,7 +6,13 @@ Push the handle across; past the mark it takes over and finishes itself.
 
 ## Use it
 
-Copy `SlideConfirm.tsx` and `SlideConfirm.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/slide-confirm.json
+```
+
+Or by hand: copy `SlideConfirm.tsx` and `SlideConfirm.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install framer-motion lucide-react

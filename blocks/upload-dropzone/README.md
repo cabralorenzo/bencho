@@ -6,7 +6,13 @@ Drag a file into the box to upload it; one that is too big gets refused.
 
 ## Use it
 
-Copy `Upload.tsx` and `Upload.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/upload-dropzone.json
+```
+
+Or by hand: copy `Upload.tsx` and `Upload.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install framer-motion lucide-react

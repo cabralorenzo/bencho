@@ -6,7 +6,13 @@ A field whose label lifts into the top edge as you focus it.
 
 ## Use it
 
-Copy `LabelInput.tsx` and `LabelInput.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/label-input.json
+```
+
+Or by hand: copy `LabelInput.tsx` and `LabelInput.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install lucide-react

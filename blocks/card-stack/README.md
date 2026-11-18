@@ -6,7 +6,13 @@ A small deck of photos that fans out as you reach it. Hover to draw a card up, c
 
 ## Use it
 
-Copy `Stack.tsx` and `Stack.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/card-stack.json
+```
+
+Or by hand: copy `Stack.tsx` and `Stack.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 No packages beyond React.
 

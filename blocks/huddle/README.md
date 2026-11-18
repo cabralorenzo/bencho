@@ -6,7 +6,13 @@ A voice room with three people in it. Join and your orb pops in while the others
 
 ## Use it
 
-Copy `Huddle.tsx` and `Huddle.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/huddle.json
+```
+
+Or by hand: copy `Huddle.tsx` and `Huddle.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install @outpacelabs/avatars @phosphor-icons/react framer-motion

@@ -6,7 +6,13 @@ A set of colours that go together; press for a new palette.
 
 ## Use it
 
-Copy `Palette.tsx` and `Palette.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/palette.json
+```
+
+Or by hand: copy `Palette.tsx` and `Palette.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install lucide-react

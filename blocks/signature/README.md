@@ -6,7 +6,13 @@ Sign it; the ink thins with speed, and Clear rewinds it stroke by stroke.
 
 ## Use it
 
-Copy `Signature.tsx` and `Signature.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/signature.json
+```
+
+Or by hand: copy `Signature.tsx` and `Signature.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install lucide-react

@@ -6,7 +6,13 @@ A month of visits as stacked bars; run along them and one day is ringed while a 
 
 ## Use it
 
-Copy `StackedBars.tsx` and `StackedBars.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/stacked-bars.json
+```
+
+Or by hand: copy `StackedBars.tsx` and `StackedBars.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install framer-motion

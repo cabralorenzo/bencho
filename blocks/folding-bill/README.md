@@ -6,7 +6,13 @@ A bill you can grab, drag and fold; plain or with the dollar print.
 
 ## Use it
 
-Copy `FoldingBill.tsx` and `FoldingBill.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/folding-bill.json
+```
+
+Or by hand: copy `FoldingBill.tsx` and `FoldingBill.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install three

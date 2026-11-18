@@ -6,7 +6,13 @@ Hold to record a waveform, slide left to bin it, let go to play it back.
 
 ## Use it
 
-Copy `VoiceNote.tsx` and `VoiceNote.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/voice-note.json
+```
+
+Or by hand: copy `VoiceNote.tsx` and `VoiceNote.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install lucide-react

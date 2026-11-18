@@ -6,7 +6,13 @@ A ball you grab: it swells under the pointer and squeezes as you hold it.
 
 ## Use it
 
-Copy `Ball.tsx` and `Ball.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/drag-ball.json
+```
+
+Or by hand: copy `Ball.tsx` and `Ball.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install framer-motion liquid-gooey

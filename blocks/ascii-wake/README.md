@@ -6,7 +6,13 @@ A cube drawn in ink dots: the pointer drags a wake of characters through it that
 
 ## Use it
 
-Copy `AsciiWake.tsx` and `AsciiWake.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/ascii-wake.json
+```
+
+Or by hand: copy `AsciiWake.tsx` and `AsciiWake.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 No packages beyond React.
 

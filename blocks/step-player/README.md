@@ -6,7 +6,13 @@ Press play and each step fills as a bar, then eases on to the next dot.
 
 ## Use it
 
-Copy `StepPlayer.tsx` and `StepPlayer.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/step-player.json
+```
+
+Or by hand: copy `StepPlayer.tsx` and `StepPlayer.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 No packages beyond React.
 

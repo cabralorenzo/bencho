@@ -6,7 +6,13 @@ A switch whose droplet stretches as it slides across the track.
 
 ## Use it
 
-Copy `Toggle.tsx` and `Toggle.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/liq-toggle.json
+```
+
+Or by hand: copy `Toggle.tsx` and `Toggle.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install framer-motion

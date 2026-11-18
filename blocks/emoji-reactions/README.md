@@ -6,7 +6,13 @@ Press the button and the message turns into a pill of emoji; pick one and it fli
 
 ## Use it
 
-Copy `Reactions.tsx` and `Reactions.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/emoji-reactions.json
+```
+
+Or by hand: copy `Reactions.tsx` and `Reactions.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install framer-motion lucide-react

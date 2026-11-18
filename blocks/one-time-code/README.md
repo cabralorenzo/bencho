@@ -6,7 +6,13 @@ Six boxes that are one field: paste, autofill and backspace all just work.
 
 ## Use it
 
-Copy `Otp.tsx` and `Otp.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/one-time-code.json
+```
+
+Or by hand: copy `Otp.tsx` and `Otp.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install lucide-react

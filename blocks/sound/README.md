@@ -6,7 +6,13 @@ A now-playing bar that opens into a full player and folds back as one.
 
 ## Use it
 
-Copy `Sound.tsx` and `Sound.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/sound.json
+```
+
+Or by hand: copy `Sound.tsx` and `Sound.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install lucide-react

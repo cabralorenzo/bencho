@@ -6,7 +6,13 @@ A context window as one stacked bar, or a field of dots. Point at a kind to ligh
 
 ## Use it
 
-Copy `ContextMeter.tsx` and `ContextMeter.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/context-meter.json
+```
+
+Or by hand: copy `ContextMeter.tsx` and `ContextMeter.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install framer-motion

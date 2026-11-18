@@ -6,7 +6,13 @@ Press the pill and it spreads into the create menu it was all along.
 
 ## Use it
 
-Copy `Create.tsx` and `Create.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/liq-create.json
+```
+
+Or by hand: copy `Create.tsx` and `Create.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install framer-motion lucide-react

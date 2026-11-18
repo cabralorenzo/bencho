@@ -6,7 +6,13 @@ A number between a minus and a plus whose digits roll like an odometer, carrying
 
 ## Use it
 
-Copy `Counter.tsx` and `Counter.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/rolling-counter.json
+```
+
+Or by hand: copy `Counter.tsx` and `Counter.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install lucide-react

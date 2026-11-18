@@ -6,7 +6,13 @@ Drag a ball of glass over a photo and watch it bend the picture beneath.
 
 ## Use it
 
-Copy `LiquidGlass.tsx` and `LiquidGlass.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/glass-bubble.json
+```
+
+Or by hand: copy `LiquidGlass.tsx` and `LiquidGlass.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 No packages beyond React.
 

@@ -6,7 +6,13 @@ Press an option and it swells as the rest are pushed out of its way.
 
 ## Use it
 
-Copy `MagneticSelect.tsx` and `MagneticSelect.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
+With the shadcn CLI, in one line (the packages and colours come with it):
+
+```bash
+npx shadcn@latest add https://bencho.dev/r/magnet-select.json
+```
+
+Or by hand: copy `MagneticSelect.tsx` and `MagneticSelect.css` into your project, and add [`tokens.css`](../../tokens.css) once if you have not already.
 
 ```bash
 npm install framer-motion
