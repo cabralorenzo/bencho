@@ -73,3 +73,10 @@
 .cmp:hover .cmp-knob { scale: 1.08; }
 
 .cmp[data-held] .cmp-knob { scale: 0.9; }
+
+/* ══ ?compare — two or more blocks on one page ═════════════
+   site/Compare.tsx, dev server only. Each block in the grey card the
+   wall gives it, with its name and who made it underneath */
+/* prefix sxs-, NOT cmp-: .cmp is the Image compare block, and a bare
+   .cmp here gave that block min-height 100vh on the live wall */
+.sxs { min-height: 100vh; box-sizing: border-box; padding: 40px 24px; display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: center; gap: 24px; background: var(--bg); font-family: var(--font-ui); }

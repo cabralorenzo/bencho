@@ -2,7 +2,7 @@
   "name": "bencho-free",
   "private": true,
   "version": "1.0.0",
-  "description": "The free half of Bencho: 47 interactive React blocks and 24 synthesised interface sounds.",
+  "description": "The free half of Bencho: 48 interactive React blocks and 24 synthesised interface sounds.",
   "license": "MIT",
   "type": "module",
   "homepage": "https://bencho.dev",
@@ -12,6 +12,8 @@
     "check": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
+    "@outpacelabs/avatars": "^0.6.0",
+    "@phosphor-icons/react": "^2.1.10",
     "framer-motion": "^13.1.1",
     "liquid-gooey": "^0.2.1",
     "lucide-react": "^1.31.0",

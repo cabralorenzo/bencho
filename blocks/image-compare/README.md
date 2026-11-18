@@ -30,7 +30,7 @@ Every prop is optional and defaults to what the block ships with on bencho.dev.
 
 ## Tokens it reads
 
-`--card` `--fill-on` `--fill-slab` `--font-ui` `--ink` `--signal` — all defined in [`tokens.css`](../../tokens.css). Map them to your own theme if you have one.
+`--bg` `--card` `--fill-on` `--fill-slab` `--font-ui` `--ink` `--signal` — all defined in [`tokens.css`](../../tokens.css). Map them to your own theme if you have one.
 
 ---
 

@@ -2,30 +2,32 @@ import { StrictMode, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "../tokens.css";
 import "./playground.css";
-import { Stack as B_card_stack } from "../blocks/card-stack/Stack";
-import "../blocks/card-stack/Stack.css";
-import { ContextMeter as B_context_meter } from "../blocks/context-meter/ContextMeter";
-import "../blocks/context-meter/ContextMeter.css";
-import { Slingshot as B_slingshot } from "../blocks/slingshot/Slingshot";
-import "../blocks/slingshot/Slingshot.css";
 import { AsciiWake as B_ascii_wake } from "../blocks/ascii-wake/AsciiWake";
 import "../blocks/ascii-wake/AsciiWake.css";
 import { CardSwap as B_card_swap } from "../blocks/card-swap/CardSwap";
 import "../blocks/card-swap/CardSwap.css";
-import { Counter as B_rolling_counter } from "../blocks/rolling-counter/Counter";
-import "../blocks/rolling-counter/Counter.css";
-import { WakeSlider as B_wake_slider } from "../blocks/wake-slider/WakeSlider";
-import "../blocks/wake-slider/WakeSlider.css";
+import { Swap as B_asset_swap } from "../blocks/asset-swap/Swap";
+import "../blocks/asset-swap/Swap.css";
 import { StackedBars as B_stacked_bars } from "../blocks/stacked-bars/StackedBars";
 import "../blocks/stacked-bars/StackedBars.css";
+import { WakeSlider as B_wake_slider } from "../blocks/wake-slider/WakeSlider";
+import "../blocks/wake-slider/WakeSlider.css";
+import { ContextMeter as B_context_meter } from "../blocks/context-meter/ContextMeter";
+import "../blocks/context-meter/ContextMeter.css";
+import { Slingshot as B_slingshot } from "../blocks/slingshot/Slingshot";
+import "../blocks/slingshot/Slingshot.css";
+import { Counter as B_rolling_counter } from "../blocks/rolling-counter/Counter";
+import "../blocks/rolling-counter/Counter.css";
+import { Stack as B_card_stack } from "../blocks/card-stack/Stack";
+import "../blocks/card-stack/Stack.css";
 import { ToastStack as B_toast_stack } from "../blocks/toast-stack/ToastStack";
 import "../blocks/toast-stack/ToastStack.css";
 import { FoldingBill as B_folding_bill } from "../blocks/folding-bill/FoldingBill";
 import "../blocks/folding-bill/FoldingBill.css";
 import { Reactions as B_emoji_reactions } from "../blocks/emoji-reactions/Reactions";
 import "../blocks/emoji-reactions/Reactions.css";
-import { Swap as B_asset_swap } from "../blocks/asset-swap/Swap";
-import "../blocks/asset-swap/Swap.css";
+import { Huddle as B_huddle } from "../blocks/huddle/Huddle";
+import "../blocks/huddle/Huddle.css";
 import { HeatWord as B_heat_word } from "../blocks/heat-word/HeatWord";
 import "../blocks/heat-word/HeatWord.css";
 import { Compare as B_image_compare } from "../blocks/image-compare/Compare";
@@ -99,18 +101,19 @@ import "../blocks/liq-create/Create.css";
 import { play, SOUND_NAMES } from "../sounds/sounds";
 
 const BLOCKS = [
-  { id: "card-stack", title: "Card stack", el: <B_card_stack /> },
-  { id: "context-meter", title: "Context meter", el: <B_context_meter /> },
-  { id: "slingshot", title: "Slingshot", el: <B_slingshot /> },
   { id: "ascii-wake", title: "ASCII wake", el: <B_ascii_wake /> },
   { id: "card-swap", title: "Card swap", el: <B_card_swap /> },
-  { id: "rolling-counter", title: "Rolling counter", el: <B_rolling_counter /> },
-  { id: "wake-slider", title: "Wake slider", el: <B_wake_slider /> },
+  { id: "asset-swap", title: "Asset swap", el: <B_asset_swap /> },
   { id: "stacked-bars", title: "Stacked bars", el: <B_stacked_bars /> },
+  { id: "wake-slider", title: "Wake slider", el: <B_wake_slider /> },
+  { id: "context-meter", title: "Context meter", el: <B_context_meter /> },
+  { id: "slingshot", title: "Slingshot", el: <B_slingshot /> },
+  { id: "rolling-counter", title: "Rolling counter", el: <B_rolling_counter /> },
+  { id: "card-stack", title: "Card stack", el: <B_card_stack /> },
   { id: "toast-stack", title: "Toast stack", el: <B_toast_stack /> },
   { id: "folding-bill", title: "Folding bill", el: <B_folding_bill /> },
   { id: "emoji-reactions", title: "Emoji reactions", el: <B_emoji_reactions /> },
-  { id: "asset-swap", title: "Asset swap", el: <B_asset_swap /> },
+  { id: "huddle", title: "Huddle", el: <B_huddle /> },
   { id: "heat-word", title: "Heat map", el: <B_heat_word /> },
   { id: "image-compare", title: "Image compare", el: <B_image_compare /> },
   { id: "like", title: "Like", el: <B_like /> },

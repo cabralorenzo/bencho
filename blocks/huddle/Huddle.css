@@ -1,0 +1,100 @@
+/* ══ Huddle ════════════════════════════════════════════════
+   lab/Huddle.tsx. The room makes room */
+.hdl {
+  --hdl-ink: var(--fill-on, var(--ink, #17181a));
+  --hdl-slab: var(--fill-slab, var(--card, #fff));
+  --hdl-soft: color-mix(in srgb, var(--fill-on, #17181a) 72%, var(--fill-slab, #fff));
+  --hdl-mute: color-mix(in srgb, var(--fill-on, #17181a) 52%, var(--fill-slab, #fff));
+  --hdl-faint: color-mix(in srgb, var(--fill-on, #17181a) 32%, var(--fill-slab, #fff));
+  --hdl-w6: color-mix(in srgb, var(--fill-on, #17181a) 6%, var(--fill-slab, #fff));
+  --hdl-w12: color-mix(in srgb, var(--fill-on, #17181a) 12%, var(--fill-slab, #fff));
+  --hdl-w20: color-mix(in srgb, var(--fill-on, #17181a) 20%, var(--fill-slab, #fff));
+  /* a wash straight on the card stays see-through */
+  --hdl-air6: color-mix(in srgb, var(--fill-on, #17181a) 6%, transparent);
+  --hdl-air12: color-mix(in srgb, var(--fill-on, #17181a) 12%, transparent);
+  --hdl-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --hdl-pop: cubic-bezier(0.24, 1.34, 0.38, 1);
+  font-family: var(--font-ui);
+  color: var(--hdl-ink);
+  user-select: none;
+  -webkit-user-select: none;
+  box-sizing: border-box;
+  padding: 16px;
+  border-radius: 20px;
+  background: var(--hdl-slab);}
+
+[data-stroke="on"] .hdl { box-shadow: 0 0 0 1px var(--pane-edge); }
+
+.hdl-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+
+.hdl-title { font-size: 16px; line-height: 22px; font-weight: 500; letter-spacing: -0.01em; }
+
+.hdl-meta { font-size: 13px; line-height: 22px; color: var(--hdl-mute); font-variant-numeric: tabular-nums; white-space: nowrap; animation: hdl-meta 220ms var(--hdl-out) both; }
+
+.hdl-orb { display: block; flex: none; border-radius: 50%; overflow: hidden; }
+
+.hdl-orb > * { display: block; width: 100%; height: 100%; }
+
+/* the count as a pill, centred on the title's line */
+.hdl-head { align-items: center; }
+
+.hdl-meta { height: 24px; padding: 0 10px; border-radius: 999px; background: var(--hdl-w6); font-size: 12px; line-height: 24px; color: var(--hdl-soft); }
+
+.hdl-room { display: flex; justify-content: center; gap: 16px; margin-top: 16px; }
+
+.hdl-person { position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+
+.hdl-orb { position: relative; width: 52px; height: 52px; }
+
+/* the sound wave: four white bars in the middle of the orb, shown on
+   whoever is talking, only once you are in. Mirrored,
+   so it stays balanced: the two inner bars taller, the two outer shorter,
+   each pair moving together, the pairs half a beat apart, and only a
+   little way, slowly */
+.hdl-wave { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 2.5px; opacity: 0; transform: scale(0.6); transition: opacity 200ms ease, transform 260ms var(--hdl-pop); pointer-events: none; }
+
+.hdl[data-live] .hdl-person[data-talking] .hdl-wave { opacity: 1; transform: none; }
+
+.hdl-wave i { width: 2.5px; height: 7px; border-radius: 999px; background: #fff; }
+
+.hdl-wave i:nth-child(2), .hdl-wave i:nth-child(3) { height: 12px; }
+
+.hdl[data-live] .hdl-person[data-talking] .hdl-wave i { animation: hdl-wave 1300ms cubic-bezier(0.45, 0, 0.55, 1) infinite alternate; }
+
+.hdl[data-live] .hdl-person[data-talking] .hdl-wave i:nth-child(2), .hdl[data-live] .hdl-person[data-talking] .hdl-wave i:nth-child(3) { animation-delay: -650ms; }
+
+.hdl-name { font-size: 12px; line-height: 16px; color: var(--hdl-mute); transition: color 160ms ease; }
+
+.hdl[data-live] .hdl-person[data-talking] .hdl-name { color: var(--hdl-ink); font-weight: 500; }
+
+.hdl-go { display: flex; align-items: center; justify-content: center; gap: 8px; flex: 1 1 0; min-width: 0; height: 40px; padding: 0; border: 0; border-radius: 999px; background: var(--hdl-ink); font: inherit; font-size: 14px; font-weight: 500; letter-spacing: -0.01em; color: var(--hdl-slab); cursor: pointer; transition: background-color 220ms ease, color 220ms ease, scale 160ms var(--hdl-out); }
+
+.hdl-keys { display: flex; gap: 8px; margin-top: 16px; }
+
+.hdl-mute, .hdl-more { flex: none; width: 40px; background: var(--hdl-w6); color: var(--hdl-ink); animation: hdl-meta 220ms var(--hdl-out) both; }
+
+.hdl-mute span, .hdl-more span { display: grid; place-items: center; }
+
+.hdl-mute[data-muted] { background: var(--hdl-ink); color: var(--hdl-slab); }
+
+/* your orb dims while you are muted */
+.hdl-person[data-muted] .hdl-orb { opacity: 0.45; transition: opacity 200ms ease; }
+
+.hdl-orb { transition: opacity 200ms ease; }
+
+.hdl-go:active { scale: 0.96; }
+
+.hdl-go:focus-visible { outline: 2px solid var(--signal, #2231dd); outline-offset: 2px; }
+
+/* leaving is the one place colour means something */
+.hdl-go[data-in] { background: #e5484d; color: #fff; }
+
+.hdl-go span { animation: hdl-meta 220ms var(--hdl-out) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hdl[data-live] .hdl-person[data-talking] .hdl-wave i { animation: none; }
+}
+
+@keyframes hdl-meta { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+
+@keyframes hdl-wave { from { transform: scaleY(0.62); } to { transform: scaleY(1); } }

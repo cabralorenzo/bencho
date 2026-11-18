@@ -31,30 +31,30 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 0 20px 16px;}
+  padding: 0 16px 16px;}
 
 [data-stroke="on"] .swp-card { box-shadow: inset 0 0 0 1px var(--pane-edge); }
 
 .swp-label {
   position: absolute;
   top: 16px;
-  left: 18px;
-  font-size: 12px;
+  left: 16px;
+  font-size: 13px;
   font-weight: 400;
-  color: color-mix(in srgb, var(--fill-on, #17181a) 32%, var(--fill-slab, #ffffff));
+  color: color-mix(in srgb, var(--fill-on, #17181a) 52%, var(--fill-slab, #ffffff));
   letter-spacing: 0em;}
 
 .swp-amount {
-  font-size: 20px;
+  font-size: 26px;
   font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  margin-bottom: 4px;
+  letter-spacing: -0.03em;
+  line-height: 30px;
+  margin-bottom: 2px;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;}
 
 .swp-fiat {
-  font-size: 12px;
+  font-size: 13px;
   color: color-mix(in srgb, var(--fill-on, #17181a) 52%, var(--fill-slab, #ffffff));
   font-variant-numeric: tabular-nums;
   letter-spacing: 0em;}
@@ -62,8 +62,8 @@
 /* the coin sits in the slab's bottom-right corner */
 .swp-coin {
   position: absolute;
-  right: 14px;
-  bottom: 14px;
+  right: 16px;
+  bottom: 16px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -89,7 +89,7 @@
    the pill takes more of it there */
 [data-fill="dark"] .swp-coin { background: color-mix(in srgb, var(--fill-on, #17181a) 12%, transparent); }
 
-[data-fill="dark"] .swp-coin:hover { background: color-mix(in srgb, var(--fill-on, #17181a) 12%, transparent); }
+[data-fill="dark"] .swp-coin:hover { background: color-mix(in srgb, var(--fill-on, #17181a) 20%, transparent); }
 
 .swp-coin:active { scale: 0.96; }
 
@@ -113,7 +113,7 @@
   cursor: pointer;
   color: var(--fill-on, var(--ink));
   /* no shadow: a step darker than the slabs is what sets it apart */
-  background: color-mix(in srgb, var(--fill-on, var(--ink)) 7%, var(--fill-slab, var(--card)));
+  background: color-mix(in srgb, var(--fill-on, var(--ink)) 6%, var(--fill-slab, var(--card)));
   -webkit-tap-highlight-color: transparent;}
 
 [data-stroke="on"] .swp-flip { box-shadow: inset 0 0 0 1px var(--pane-edge); }

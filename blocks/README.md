@@ -1,21 +1,22 @@
 # Blocks
 
-47 free blocks. Each folder holds the component, its stylesheet and a README with its props.
+48 free blocks. Each folder holds the component, its stylesheet and a README with its props.
 
 | Block | Folder | Packages |
 | --- | --- | --- |
-| [Card stack](card-stack) | `card-stack/Stack.tsx` | — |
-| [Context meter](context-meter) | `context-meter/ContextMeter.tsx` | `framer-motion` |
-| [Slingshot](slingshot) | `slingshot/Slingshot.tsx` | `lucide-react` |
 | [ASCII wake](ascii-wake) | `ascii-wake/AsciiWake.tsx` | — |
 | [Card swap](card-swap) | `card-swap/CardSwap.tsx` | — |
-| [Rolling counter](rolling-counter) | `rolling-counter/Counter.tsx` | `lucide-react` |
-| [Wake slider](wake-slider) | `wake-slider/WakeSlider.tsx` | — |
+| [Asset swap](asset-swap) | `asset-swap/Swap.tsx` | `framer-motion` `lucide-react` |
 | [Stacked bars](stacked-bars) | `stacked-bars/StackedBars.tsx` | `framer-motion` |
+| [Wake slider](wake-slider) | `wake-slider/WakeSlider.tsx` | — |
+| [Context meter](context-meter) | `context-meter/ContextMeter.tsx` | `framer-motion` |
+| [Slingshot](slingshot) | `slingshot/Slingshot.tsx` | `lucide-react` |
+| [Rolling counter](rolling-counter) | `rolling-counter/Counter.tsx` | `lucide-react` |
+| [Card stack](card-stack) | `card-stack/Stack.tsx` | — |
 | [Toast stack](toast-stack) | `toast-stack/ToastStack.tsx` | `framer-motion` `lucide-react` |
 | [Folding bill](folding-bill) | `folding-bill/FoldingBill.tsx` | `three` |
 | [Emoji reactions](emoji-reactions) | `emoji-reactions/Reactions.tsx` | `framer-motion` `lucide-react` |
-| [Asset swap](asset-swap) | `asset-swap/Swap.tsx` | `framer-motion` `lucide-react` |
+| [Huddle](huddle) | `huddle/Huddle.tsx` | `@outpacelabs/avatars` `@phosphor-icons/react` `framer-motion` |
 | [Heat map](heat-word) | `heat-word/HeatWord.tsx` | — |
 | [Image compare](image-compare) | `image-compare/Compare.tsx` | — |
 | [Like](like) | `like/Like.tsx` | `framer-motion` `lucide-react` |
