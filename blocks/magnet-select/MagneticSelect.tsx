@@ -1,6 +1,36 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
+/* ══ Magnetic select ═══════════════════════════════════════
+   A cluster of options set close enough together to be in
+   each other's way, and a selection that behaves like a
+   magnet rather than a highlight: the one you press swells
+   and takes the ink, and the rest are shoved radially out of
+   its way — hardest next to it, barely at all at the edges.
+
+   THE POINT IS THE FIELD, NOT THE ITEM. A normal segmented
+   control moves an indicator and leaves the layout alone,
+   which is why selecting in one feels like bookkeeping. Here
+   the choice deforms its neighbourhood, so the answer to
+   "which one is selected" is legible from three feet away
+   with the shapes unreadable — it is the one everything else
+   is leaning away from.
+
+   ── AND IT IS A GROUP, NOT A ROW ─────────────────────────
+   It was a row first, and a row wastes the idea. In a line
+   there are two directions to be pushed and both of them are
+   the same direction, so the field can only ever read as
+   spacing; the falloff has to be inferred from how far along
+   the row you are. In a cluster the shove is a VECTOR — each
+   chip goes the way it actually lies from the magnet — and
+   the same arithmetic suddenly reads as a field, because you
+   can see it acting on every bearing at once.
+
+   Every number still falls out of ONE decision: how far the
+   selected chip grows. The room it needs is arithmetic from
+   that, the shove is that room plus an aura, the aura decays
+   with real distance, and the tilt is the aura's leftovers. */
+
 /* ── inlined from lab/spring ──────────────────────── */
 /* ── one spring, for everything that settles ───────────────
    The maths was already on this bench twice, copied by hand:
@@ -34,47 +64,52 @@ const stillness = () =>
   typeof window !== "undefined" &&
   !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
-/* A drawn placeholder: Bencho's photographs are licensed to
-   the site and do not travel. Point this at your own. */
-const MARKS: string[] = [
-  "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2048%2048%22%20width%3D%2248%22%20height%3D%2248%22%20fill%3D%22%2317181a%22%3E%3Ccircle%20cx%3D%2224%22%20cy%3D%2224%22%20r%3D%2214%22%2F%3E%3C%2Fsvg%3E",
-  "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2048%2048%22%20width%3D%2248%22%20height%3D%2248%22%20fill%3D%22%2317181a%22%3E%3Crect%20x%3D%2211%22%20y%3D%2211%22%20width%3D%2226%22%20height%3D%2226%22%20rx%3D%225%22%2F%3E%3C%2Fsvg%3E",
-  "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2048%2048%22%20width%3D%2248%22%20height%3D%2248%22%20fill%3D%22%2317181a%22%3E%3Cpath%20d%3D%22M24%208%20L40%2038%20L8%2038%20Z%22%2F%3E%3C%2Fsvg%3E",
-  "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2048%2048%22%20width%3D%2248%22%20height%3D%2248%22%20fill%3D%22%2317181a%22%3E%3Cpath%20d%3D%22M24%206%20L42%2024%20L24%2042%20L6%2024%20Z%22%2F%3E%3C%2Fsvg%3E",
-  "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2048%2048%22%20width%3D%2248%22%20height%3D%2248%22%20fill%3D%22%2317181a%22%3E%3Cpath%20d%3D%22M10%2024%20a14%2014%200%200%201%2028%200%20v14%20h-28%20Z%22%2F%3E%3C%2Fsvg%3E",
-  "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2048%2048%22%20width%3D%2248%22%20height%3D%2248%22%20fill%3D%22%2317181a%22%3E%3Cpath%20d%3D%22M24%207%20l4.9%2010%2011%201.6%20-8%207.8%201.9%2011%20-9.8%20-5.2%20-9.8%205.2%201.9%20-11%20-8%20-7.8%2011%20-1.6%20Z%22%2F%3E%3C%2Fsvg%3E",
-  "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2048%2048%22%20width%3D%2248%22%20height%3D%2248%22%20fill%3D%22%2317181a%22%3E%3Crect%20x%3D%228%22%20y%3D%2217%22%20width%3D%2232%22%20height%3D%2214%22%20rx%3D%227%22%2F%3E%3C%2Fsvg%3E",
+/* ── inlined from site/orb ──────────────────────── */
+/* ══ the orb ═══════════════════════════════════════════════
+   A voice, drawn. Lifted out of Sounds.tsx when the overlay
+   arrived and needed the same disc at three times the size —
+   one file, because the alternative is two hue tables that
+   agree until somebody retunes a note.
+
+   Everything here is derived from VOICES. Nothing about a
+   sound is written down twice. */
+
+/* ── the soft radial orbs (2026-11-24) ────────────────────────
+   Eight blends from a reference Lorenzo sent: a warm or bright middle
+   melting out to a contrasting rim, each sized to the circle
+   (closest-side) so the rim colour lands on the orb's edge. Tried first
+   on the free sounds, now on every sound in the library: each voice
+   takes one, in turn. The bento's sounds row reads the same list. The
+   film (src/film) still draws the old drifting meshes. */
+/* all one recipe (2026-11-24), the pink-to-orange one Lorenzo picked:
+   a saturated middle opening out through a neighbouring hue to a light
+   rim, four stops at 0 / 34 / 68 / 100. Pink to orange, violet to pink,
+   blue to cyan, teal to lime, indigo to rose, coral to peach, purple to
+   sky, rose to lilac, emerald to aqua, sky to mint, fuchsia to orange,
+   flame to blush, cobalt to lavender, plum to pink,
+   ocean to teal, magenta to peach, royal to sky, green to seafoam,
+   orchid to periwinkle. No yellows, no crimson red (2026-11-24) */
+const RADIAL: readonly string[] = [
+  "radial-gradient(circle closest-side, #f03c97 0%, #f4518f 34%, #f97c7c 68%, #fdb06b 100%)",
+  "radial-gradient(circle closest-side, #8b3cf0 0%, #a24fe6 34%, #d071c8 68%, #f6a0b8 100%)",
+  "radial-gradient(circle closest-side, #3c5df0 0%, #4f7cf0 34%, #5fb0f2 68%, #7fe0f0 100%)",
+  "radial-gradient(circle closest-side, #12b5a0 0%, #2fc39a 34%, #7bd88a 68%, #c8ec7a 100%)",
+  "radial-gradient(circle closest-side, #4a3cf0 0%, #6a4fe8 34%, #a874d8 68%, #f0a2c8 100%)",
+  "radial-gradient(circle closest-side, #ff4f6e 0%, #ff6a78 34%, #ff9a8a 68%, #ffcf9e 100%)",
+  "radial-gradient(circle closest-side, #b03cf0 0%, #9c55ee 34%, #7d86f0 68%, #6fb6f6 100%)",
+  "radial-gradient(circle closest-side, #e8417a 0%, #ec5c94 34%, #e690c9 68%, #d9b8f2 100%)",
+  "radial-gradient(circle closest-side, #10b981 0%, #26c39a 34%, #5fd6c6 68%, #9eeaf0 100%)",
+  "radial-gradient(circle closest-side, #2f9bf0 0%, #4cb0ee 34%, #7fd0d8 68%, #b4f0c8 100%)",
+  "radial-gradient(circle closest-side, #d63cf0 0%, #e351c8 34%, #f07f96 68%, #fbb46e 100%)",
+  "radial-gradient(circle closest-side, #f05a1c 0%, #f47045 34%, #f7948a 68%, #f9c2c8 100%)",
+  "radial-gradient(circle closest-side, #2443d6 0%, #4d5de2 34%, #8b8ae8 68%, #c9b8f4 100%)",
+  "radial-gradient(circle closest-side, #7e22ce 0%, #9a3ad6 34%, #c66bd6 68%, #eba6d8 100%)",
+  "radial-gradient(circle closest-side, #0e7490 0%, #1d8fa8 34%, #4fbcc0 68%, #9ee6d8 100%)",
+  "radial-gradient(circle closest-side, #db2777 0%, #e64a86 34%, #f08b96 68%, #f9c4b0 100%)",
+  "radial-gradient(circle closest-side, #1d4ed8 0%, #3466e8 34%, #5f9cf0 68%, #a6d6f8 100%)",
+  "radial-gradient(circle closest-side, #16a34a 0%, #34b862 34%, #74d39a 68%, #b6edcf 100%)",
+  "radial-gradient(circle closest-side, #c026d3 0%, #b44bdc 34%, #9b84ea 68%, #b9c4f6 100%)",
 ];
-
-/* ══ Magnetic select ═══════════════════════════════════════
-   A cluster of options set close enough together to be in
-   each other's way, and a selection that behaves like a
-   magnet rather than a highlight: the one you press swells
-   and takes the ink, and the rest are shoved radially out of
-   its way — hardest next to it, barely at all at the edges.
-
-   THE POINT IS THE FIELD, NOT THE ITEM. A normal segmented
-   control moves an indicator and leaves the layout alone,
-   which is why selecting in one feels like bookkeeping. Here
-   the choice deforms its neighbourhood, so the answer to
-   "which one is selected" is legible from three feet away
-   with the shapes unreadable — it is the one everything else
-   is leaning away from.
-
-   ── AND IT IS A GROUP, NOT A ROW ─────────────────────────
-   It was a row first, and a row wastes the idea. In a line
-   there are two directions to be pushed and both of them are
-   the same direction, so the field can only ever read as
-   spacing; the falloff has to be inferred from how far along
-   the row you are. In a cluster the shove is a VECTOR — each
-   chip goes the way it actually lies from the magnet — and
-   the same arithmetic suddenly reads as a field, because you
-   can see it acting on every bearing at once.
-
-   Every number still falls out of ONE decision: how far the
-   selected chip grows. The room it needs is arithmetic from
-   that, the shove is that room plus an aura, the aura decays
-   with real distance, and the tilt is the aura's leftovers. */
 
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
 
@@ -97,7 +132,11 @@ const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v
    image is a dead square the moment it leaves this machine.
    The FILE ORDER is the cluster order, so renaming them
    rearranges the component and nothing else has to know. */
-const NAMES = MARKS.map((_, i) => `Option ${i + 1}`);
+/* each chip's face is one of the Sounds wall's soft radial orbs
+   (2026-11-25), in place of the photographic marks: seven looks picked
+   to sit apart, so neighbours never share a hue */
+const ORBS = [10, 2, 3, 1, 5, 8, 12].map((k) => RADIAL[k]);
+const NAMES = ORBS.map((_, i) => `Option ${i + 1}`);
 
 const CHIP = 44;
 const H_PAD = 26;
@@ -191,7 +230,7 @@ export function MagneticSelect({
   bounce?: number;
   give?: number;
 } = {}) {
-  const n = Math.min(SIZES[size] ?? 7, MARKS.length);
+  const n = Math.min(SIZES[size] ?? 7, ORBS.length);
   const p = clamp(pull, 0, 100) / 100;
   const pts = CLUSTER[n];
 
@@ -524,7 +563,7 @@ export function MagneticSelect({
                 "--ly": `${lean.y.toFixed(2)}px`,
               } as React.CSSProperties}
             >
-              <img className="mag-mark" src={MARKS[i]} alt="" draggable={false} />
+              <span className="mag-mark" style={{ background: ORBS[i] }} />
             </span>
           </motion.button>
         );

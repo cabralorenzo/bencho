@@ -2,15 +2,6 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, ChevronDown } from "lucide-react";
 
-/* A drawn placeholder: Bencho's photographs are licensed to
-   the site and do not travel. Point this at your own. */
-const AVATARS: Record<string, string> = {
-  kai: "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2096%2096%22%20width%3D%2296%22%20height%3D%2296%22%3E%3Crect%20width%3D%2296%22%20height%3D%2296%22%20fill%3D%22rgb%28187%2C187%2C189%29%22%2F%3E%3Ctext%20x%3D%2248%22%20y%3D%2261%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20Helvetica%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2240%22%20font-weight%3D%22500%22%20fill%3D%22%23fff%22%3EA%3C%2Ftext%3E%3C%2Fsvg%3E",
-  mara: "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2096%2096%22%20width%3D%2296%22%20height%3D%2296%22%3E%3Crect%20width%3D%2296%22%20height%3D%2296%22%20fill%3D%22rgb%28164%2C164%2C166%29%22%2F%3E%3Ctext%20x%3D%2248%22%20y%3D%2261%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20Helvetica%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2240%22%20font-weight%3D%22500%22%20fill%3D%22%23fff%22%3EP%3C%2Ftext%3E%3C%2Fsvg%3E",
-  sofia: "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2096%2096%22%20width%3D%2296%22%20height%3D%2296%22%3E%3Crect%20width%3D%2296%22%20height%3D%2296%22%20fill%3D%22rgb%28201%2C201%2C203%29%22%2F%3E%3Ctext%20x%3D%2248%22%20y%3D%2261%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20Helvetica%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2240%22%20font-weight%3D%22500%22%20fill%3D%22%23fff%22%3EN%3C%2Ftext%3E%3C%2Fsvg%3E",
-  ines: "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2096%2096%22%20width%3D%2296%22%20height%3D%2296%22%3E%3Crect%20width%3D%2296%22%20height%3D%2296%22%20fill%3D%22rgb%28178%2C178%2C180%29%22%2F%3E%3Ctext%20x%3D%2248%22%20y%3D%2261%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20Helvetica%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2240%22%20font-weight%3D%22500%22%20fill%3D%22%23fff%22%3EM%3C%2Ftext%3E%3C%2Fsvg%3E",
-};
-
 /* ══ Assignees ════════════════════════════════════════════
    A pill that opens a list, and fills up with faces as you
    assign them. One, two, four — the pill grows to hold them
@@ -27,6 +18,53 @@ const AVATARS: Record<string, string> = {
    you how many you picked; a stack of faces tells you whether
    you picked the right ones. */
 
+/* ── inlined from site/orb ──────────────────────── */
+/* ══ the orb ═══════════════════════════════════════════════
+   A voice, drawn. Lifted out of Sounds.tsx when the overlay
+   arrived and needed the same disc at three times the size —
+   one file, because the alternative is two hue tables that
+   agree until somebody retunes a note.
+
+   Everything here is derived from VOICES. Nothing about a
+   sound is written down twice. */
+
+/* ── the soft radial orbs (2026-11-24) ────────────────────────
+   Eight blends from a reference Lorenzo sent: a warm or bright middle
+   melting out to a contrasting rim, each sized to the circle
+   (closest-side) so the rim colour lands on the orb's edge. Tried first
+   on the free sounds, now on every sound in the library: each voice
+   takes one, in turn. The bento's sounds row reads the same list. The
+   film (src/film) still draws the old drifting meshes. */
+/* all one recipe (2026-11-24), the pink-to-orange one Lorenzo picked:
+   a saturated middle opening out through a neighbouring hue to a light
+   rim, four stops at 0 / 34 / 68 / 100. Pink to orange, violet to pink,
+   blue to cyan, teal to lime, indigo to rose, coral to peach, purple to
+   sky, rose to lilac, emerald to aqua, sky to mint, fuchsia to orange,
+   flame to blush, cobalt to lavender, plum to pink,
+   ocean to teal, magenta to peach, royal to sky, green to seafoam,
+   orchid to periwinkle. No yellows, no crimson red (2026-11-24) */
+const RADIAL: readonly string[] = [
+  "radial-gradient(circle closest-side, #f03c97 0%, #f4518f 34%, #f97c7c 68%, #fdb06b 100%)",
+  "radial-gradient(circle closest-side, #8b3cf0 0%, #a24fe6 34%, #d071c8 68%, #f6a0b8 100%)",
+  "radial-gradient(circle closest-side, #3c5df0 0%, #4f7cf0 34%, #5fb0f2 68%, #7fe0f0 100%)",
+  "radial-gradient(circle closest-side, #12b5a0 0%, #2fc39a 34%, #7bd88a 68%, #c8ec7a 100%)",
+  "radial-gradient(circle closest-side, #4a3cf0 0%, #6a4fe8 34%, #a874d8 68%, #f0a2c8 100%)",
+  "radial-gradient(circle closest-side, #ff4f6e 0%, #ff6a78 34%, #ff9a8a 68%, #ffcf9e 100%)",
+  "radial-gradient(circle closest-side, #b03cf0 0%, #9c55ee 34%, #7d86f0 68%, #6fb6f6 100%)",
+  "radial-gradient(circle closest-side, #e8417a 0%, #ec5c94 34%, #e690c9 68%, #d9b8f2 100%)",
+  "radial-gradient(circle closest-side, #10b981 0%, #26c39a 34%, #5fd6c6 68%, #9eeaf0 100%)",
+  "radial-gradient(circle closest-side, #2f9bf0 0%, #4cb0ee 34%, #7fd0d8 68%, #b4f0c8 100%)",
+  "radial-gradient(circle closest-side, #d63cf0 0%, #e351c8 34%, #f07f96 68%, #fbb46e 100%)",
+  "radial-gradient(circle closest-side, #f05a1c 0%, #f47045 34%, #f7948a 68%, #f9c2c8 100%)",
+  "radial-gradient(circle closest-side, #2443d6 0%, #4d5de2 34%, #8b8ae8 68%, #c9b8f4 100%)",
+  "radial-gradient(circle closest-side, #7e22ce 0%, #9a3ad6 34%, #c66bd6 68%, #eba6d8 100%)",
+  "radial-gradient(circle closest-side, #0e7490 0%, #1d8fa8 34%, #4fbcc0 68%, #9ee6d8 100%)",
+  "radial-gradient(circle closest-side, #db2777 0%, #e64a86 34%, #f08b96 68%, #f9c4b0 100%)",
+  "radial-gradient(circle closest-side, #1d4ed8 0%, #3466e8 34%, #5f9cf0 68%, #a6d6f8 100%)",
+  "radial-gradient(circle closest-side, #16a34a 0%, #34b862 34%, #74d39a 68%, #b6edcf 100%)",
+  "radial-gradient(circle closest-side, #c026d3 0%, #b44bdc 34%, #9b84ea 68%, #b9c4f6 100%)",
+];
+
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
 
 /* ── the cast ──────────────────────────────────────────────
@@ -42,6 +80,9 @@ const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v
    the same four faces under different names, so the key is a
    slot rather than a person. Checked against the images at
    size rather than off the thumbnails: two men, two women. */
+/* the faces are the Sounds wall's soft radial orbs (2026-11-25), in
+   place of the photographs: one look each, picked to sit apart */
+const ORB: Record<string, string> = { kai: RADIAL[10], mara: RADIAL[2], sofia: RADIAL[3], ines: RADIAL[5] };
 const CAST = [
   { id: "kai", name: "Adam Marsh", role: "Design" },
   { id: "mara", name: "Priya Raman", role: "Research" },
@@ -272,7 +313,7 @@ export function Picker({
                   opacity: { duration: 0.16 },
                 }}
               >
-                <img src={AVATARS[id]} alt="" draggable={false} />
+                <span className="pik-orb" style={{ background: ORB[id] }} />
               </motion.span>
               );
             })}
@@ -355,7 +396,7 @@ export function Picker({
                     delay: 0.04 * CAST.indexOf(p) + 0.03,
                   }}
                 >
-                  <img className="pik-av" src={AVATARS[p.id]} alt="" draggable={false} />
+                  <span className="pik-av" style={{ background: ORB[p.id] }} />
                   <span className="pik-who">
                     <span className="pik-name">{p.name}</span>
                     <span className="pik-role">{p.role}</span>

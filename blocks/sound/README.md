@@ -33,12 +33,12 @@ Every prop is optional and defaults to what the block ships with on bencho.dev.
 
 | Prop | Knob | Default | Range | What it does |
 | --- | --- | --- | --- | --- |
-| `corner` | Corner | `16` | 0–32 | the sleeve, and the box around it |
+| `corner` | Corner | `16` | 0–36 | the sleeve, and the box around it |
 | `morph` | Morph | `50` | 0–100 | how quickly it opens |
 
 ## Tokens it reads
 
-`--card` `--fill-on` `--font-ui` `--ink-3` `--ink-4` `--ink-5` `--ink-rgb` `--on-ink` `--on-slab` `--pane` `--pane-edge` `--slab` `--surface-2` `--surface-3` — all defined in [`tokens.css`](../../tokens.css). Map them to your own theme if you have one.
+`--card` `--fill-on` `--fill-slab` `--font-ui` `--ink-3` `--ink-4` `--ink-5` `--ink-rgb` `--on-ink` `--on-slab` `--pane` `--pane-edge` `--slab` `--surface-2` `--surface-3` — all defined in [`tokens.css`](../../tokens.css). Map them to your own theme if you have one.
 
 ---
 

@@ -5,14 +5,14 @@
    the ink, strongest first; the empty room is a faint wash */
 .ctx {
   --ctx-empty: color-mix(in srgb, var(--fill-on, #17181a) 8%, var(--fill-slab, #fff));
-  /* the cool half of the wheel only, rose round through blue to green:
-     no orange or yellow, so the set stays one family, but each step is
-     a clear jump in hue so no two kinds can be mistaken */
-  --k-sys: #ec4f8c;
-  --k-tools: #9a5cf6;
-  --k-files: #3d7ef5;
-  --k-chat: #1db4cc;
-  --k-mem: #2ccb7e;
+  /* the Arc ring's, Audio trim's and Traffic's palette (2026-11-19), in
+     the same order as Traffic's stacks: blue for the biggest share, then
+     violet, orange, amber, green — a clear jump in hue at every step */
+  --k-chat: #3d7bff;
+  --k-files: #d77bf2;
+  --k-tools: #ff7a1a;
+  --k-sys: #ffbe1a;
+  --k-mem: #34c759;
   /* 20 dots of 11 on a 3px gap, plus the padding */
   width: 309px;
   box-sizing: border-box;
@@ -32,7 +32,9 @@
 
 .ctx-figure { display: flex; align-items: baseline; gap: 6px; margin: 12px 0 16px; }
 
-.ctx-num { position: relative; font-size: 30px; line-height: 32px; font-weight: 500; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+/* proportional figures, no tracking, as Traffic's (2026-11-19): tabular gave
+   the 1 an 8's width; the odometer only rolls on Compact / restore */
+.ctx-num { position: relative; font-size: 30px; line-height: 32px; font-weight: 500; letter-spacing: 0em; font-variant-numeric: proportional-nums; }
 
 /* the odometer: each digit a wheel, a window one line tall */
 .ctx-roll { display: flex; line-height: 1; }

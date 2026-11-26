@@ -153,14 +153,16 @@ function useTween(to: number, ms: number, instant = false, ease = QUART) {
 }
 
 /* One width for both states, and the frame's width too. */
-const W = 260;
+/* 300, the width most blocks are (2026-11-19: at 260 with 13px type the
+   player read as the smallest thing on the wall) */
+const W = 300;
 /* the bar, and the card. The frame is sized to the CARD —
    the wall fits a component by its bounding box, so a frame
    that grew would rescale the whole card mid-morph. */
 /* 78, not 70. The track needs a band of its own at the foot —
    at 70 it cleared the sleeve by seven pixels, which reads as
    crowding it rather than as a line of its own. */
-const SHUT = 78;
+const SHUT = 92;
 /* ── the card is the bar, grown ────────────────────────────
    It used to put a 232px sleeve across the top with the words
    underneath — a different LAYOUT at the far end of the morph,
@@ -199,8 +201,8 @@ const SHUT = 78;
    The sleeve is square, so one number is its width and its
    height at each end — and on the card it is the number the
    whole stack below is measured from. */
-const PAD = 10;
-const ART = { s: [40, 64] } as const;
+const PAD = 12;
+const ART = { s: [48, 72] } as const;
 
 /* ── the two corners, and they are CONCENTRIC ──────────────
    The box's radius is the sleeve's plus the margin between
@@ -236,7 +238,8 @@ const ART = { s: [40, 64] } as const;
    of the slider, pill at the other, and the default sits
    where it always was. */
 const CORNER = 16;
-const CORNER_MAX = 32;
+/* half the 72px sleeve, where it becomes a circle (was 32 for 64) */
+const CORNER_MAX = 36;
 
 /* ── the card's stack, measured from the sleeve down ───────
    Each gap is the distance from the thing above it, and the
@@ -250,8 +253,8 @@ const RAIL_GAP = 22;
 const CLOCK_GAP = 8;   /* also .snd-bar's own gap */
 const OPS_GAP = 16;
 const RAIL_H = 3;
-const CLOCK_H = 10;
-const LEAD = 46;       /* the play button, opened */
+const CLOCK_H = 12;
+const LEAD = 52;       /* the play button, opened */
 
 const RAIL_Y = PAD + ART.s[1] + RAIL_GAP;
 const OPS_Y = RAIL_Y + RAIL_H + CLOCK_GAP + CLOCK_H + OPS_GAP + LEAD / 2;
@@ -259,6 +262,8 @@ const OPS_Y = RAIL_Y + RAIL_H + CLOCK_GAP + CLOCK_H + OPS_GAP + LEAD / 2;
 const OPEN = Math.round(OPS_Y + LEAD / 2 + PAD);
 
 const TOTAL = 214;
+/* the transport row's width on the bar: side + gap + lead + gap + side */
+const SHUT_ROW = 28 + 6 + 36 + 6 + 28;
 
 /* ── the play mark is DRAWN, not swapped ───────────────────
    Two icons exchanged is a cut, however short you make the
@@ -359,7 +364,8 @@ export function Mark({
 }
 
 /* the heart's box, and the room the words give up for it */
-const LIKE = 30;
+/* 34 with a 24px heart, the Heart rate block's own (2026-11-19) */
+const LIKE = 34;
 
 const clock = (s: number) =>
   `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
@@ -555,14 +561,15 @@ export function Sound({
      changes: an edge would move even in the frames where the
      middle of it did not. 212 is the box less 8 of margin and
      half of the 80 the row is when shut. */
-  const side = mix(24, 34, p);
-  const lead = mix(30, LEAD, p);
+  const side = mix(28, 38, p);
+  const lead = mix(36, LEAD, p);
   /* 1 was three controls touching, which reads as one object
      with three parts rather than as three things you press */
-  const gap = mix(5, 14, p);
+  const gap = mix(6, 16, p);
   /* the box, less its margin and half of the 88 the row is
      when shut */
-  const opsX = mix(W - PAD - 44, W / 2, p);
+  /* half of the shut row: 28 + 6 + 36 + 6 + 28 */
+  const opsX = mix(W - PAD - SHUT_ROW / 2, W / 2, p);
   /* the type grows with the sleeve rather than on its own */
   /* level with the sleeve on the bar, and under everything on
      the card */
@@ -623,7 +630,7 @@ export function Sound({
           style={{
             /* beside the sleeve at BOTH ends — the gap grows
                with everything else and nothing reflows */
-            left: mix(PAD + ART.s[0] + 10, PAD + ART.s[1] + 10, p),
+            left: mix(PAD + ART.s[0] + 12, PAD + ART.s[1] + 12, p),
             /* Level with the sleeve, and centred BY it: same
                top, same height, and the words centre
                themselves inside that. It was a top edge
@@ -637,13 +644,13 @@ export function Sound({
             /* less the heart, which lives in the corner the
                words would otherwise run into. On the bar
                there is no heart and nothing to give up. */
-            width: mix(94, W - PAD - (PAD + ART.s[1] + 10) - (LIKE + 10), p),
+            width: mix(W - PAD - SHUT_ROW - 8 - (PAD + ART.s[0] + 12), W - PAD - (PAD + ART.s[1] + 12) - (LIKE + 10), p),
           }}
         >
-          <span className="snd-title" style={{ fontSize: mix(13, 15.5, p) }}>
+          <span className="snd-title" style={{ fontSize: mix(15, 17, p) }}>
             Cabra Field
           </span>
-          <span className="snd-by" style={{ fontSize: mix(11, 12, p) }}>
+          <span className="snd-by" style={{ fontSize: mix(13, 14, p) }}>
             Side B
           </span>
         </span>
@@ -744,7 +751,10 @@ export function Sound({
           aria-pressed={liked}
           tabIndex={open ? 0 : -1}
           style={{
-            left: W - PAD - LIKE,
+            /* the glyph about 18px in from the top and the side
+               (2026-11-19): pulled into the corner it read cramped
+               against the card's rounded edge */
+            left: W - PAD - LIKE - 2,
             top: PAD,
             width: LIKE,
             height: LIKE,
@@ -752,7 +762,7 @@ export function Sound({
             pointerEvents: late > 0.9 ? "auto" : "none",
           }}
         >
-          <Heart size={16} strokeWidth={2} fill={liked ? "currentColor" : "none"} />
+          <Heart size={24} strokeWidth={2} fill={liked ? "currentColor" : "none"} />
         </button>
 
         <span
@@ -770,7 +780,7 @@ export function Sound({
             onClick={() => { setAt(0); }}
             aria-label="Restart"
           >
-            <SkipBack size={mix(14, 16, p)} strokeWidth={2} />
+            <SkipBack size={mix(16, 18, p)} strokeWidth={2} fill="currentColor" />
           </button>
 
           <button
@@ -793,7 +803,7 @@ export function Sound({
                 This one is not a lucide icon at all — see
                 Mark, above — because it is the only mark here
                 that changes into another one. */}
-            <Mark playing={going} size={mix(14, 18, p)} still={still} />
+            <Mark playing={going} size={mix(16, 20, p)} still={still} />
           </button>
 
           <button
@@ -802,7 +812,7 @@ export function Sound({
             onClick={() => { setAt(0); }}
             aria-label="Next"
           >
-            <SkipForward size={mix(14, 16, p)} strokeWidth={2} />
+            <SkipForward size={mix(16, 18, p)} strokeWidth={2} fill="currentColor" />
           </button>
         </span>
 

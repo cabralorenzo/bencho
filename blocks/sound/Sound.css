@@ -267,7 +267,8 @@
      stops carrying a face nothing else here uses. */
   font-family: var(--font-ui);
   font-variant-numeric: tabular-nums;
-  font-size: 11px;
+  /* 12, the caption step (2026-11-19, from 11) */
+  font-size: 12px;
   /* 1, so the row is the height of the digits and not of the
      font's own leading — nineteen pixels for a ten pixel
      number is eight of empty space the layout above has to
@@ -346,7 +347,8 @@
   border: 0;
   border-radius: 999px;
   background: transparent;
-  color: var(--ink-3);
+  /* Heart rate's mute grey (2026-11-19), so the two hearts match */
+  color: color-mix(in srgb, var(--fill-on, #17181a) 52%, var(--fill-slab, #fff));
   cursor: pointer;
   transition: color 160ms ease, background 160ms ease,
     scale 160ms cubic-bezier(0.22, 1, 0.36, 1);}

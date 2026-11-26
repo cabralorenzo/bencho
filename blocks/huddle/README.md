@@ -1,6 +1,6 @@
 # Huddle
 
-A voice room with three people in it. Join and your orb pops in while the others shuffle up, and a ring breathes round whoever is talking.
+A voice room with two people in it. Join and your blue orb pops in while the others shuffle up, and a sound wave plays over whoever is talking.
 
 **[Try it live on bencho.dev →](https://bencho.dev/blocks/huddle)** · Press
 

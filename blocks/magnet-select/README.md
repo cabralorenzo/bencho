@@ -38,10 +38,6 @@ Every prop is optional and defaults to what the block ships with on bencho.dev.
 | `give` | Give | `50` | 0–100 | how far a chip leans toward the cursor |
 | `size` | Size | `"Large"` | `"Small"`, `"Large"` | three options, or seven |
 
-## Pictures
-
-The photographs on bencho.dev are licensed to the site and do not travel, so `MARKS` at the top of `MagneticSelect.tsx` holds drawn grey placeholders. Point it at your own images.
-
 ## Tokens it reads
 
 `--card` `--fill-on` `--fill-slab` `--font-ui` `--ink` `--pane-edge` — all defined in [`tokens.css`](../../tokens.css). Map them to your own theme if you have one.

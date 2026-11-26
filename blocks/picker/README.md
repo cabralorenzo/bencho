@@ -37,10 +37,6 @@ Every prop is optional and defaults to what the block ships with on bencho.dev.
 | `stack` | Stack | `"Row"` | `"Row"`, `"Grid"` | a growing row, or four packed into the width of one |
 | `overlap` | Overlap | `10` | 0–22 px | how far the faces stack over each other |
 
-## Pictures
-
-The photographs on bencho.dev are licensed to the site and do not travel, so `AVATARS` at the top of `Picker.tsx` holds drawn grey placeholders. Point it at your own images.
-
 ## Tokens it reads
 
 `--card` `--fill-on` `--fill-on-rgb` `--fill-slab` `--font-ui` `--ink` `--ink-rgb` `--pane-edge` — all defined in [`tokens.css`](../../tokens.css). Map them to your own theme if you have one.

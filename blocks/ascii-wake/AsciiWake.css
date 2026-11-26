@@ -1,7 +1,7 @@
 /* ══ ASCII wake ════════════════════════════════════════════ */
 .asc {
   position: relative;
-  cursor: crosshair;
+  cursor: pointer;
   touch-action: none;
   -webkit-tap-highlight-color: transparent;
   user-select: none;

@@ -39,7 +39,7 @@ Every prop is optional and defaults to what the block ships with on bencho.dev.
 
 ## Tokens it reads
 
-`--c` `--fill-on` `--fill-slab` `--font-ui` `--i` `--pane-edge` `--stb-r` `--stb-rr` — all defined in [`tokens.css`](../../tokens.css). Map them to your own theme if you have one.
+`--c` `--fill-on` `--fill-slab` `--font-ui` `--i` `--pane-edge` `--signal` `--stb-r` `--stb-rr` — all defined in [`tokens.css`](../../tokens.css). Map them to your own theme if you have one.
 
 ---
 

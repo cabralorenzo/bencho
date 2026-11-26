@@ -13,7 +13,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  cursor: ew-resize;
+  cursor: pointer;
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;

@@ -35,6 +35,8 @@
 
 .hdl-orb > * { display: block; width: 100%; height: 100%; }
 
+.hdl-orb > img { object-fit: cover; }
+
 /* the count as a pill, centred on the title's line */
 .hdl-head { align-items: center; }
 
@@ -52,6 +54,10 @@
    each pair moving together, the pairs half a beat apart, and only a
    little way, slowly */
 .hdl-wave { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 2.5px; opacity: 0; transform: scale(0.6); transition: opacity 200ms ease, transform 260ms var(--hdl-pop); pointer-events: none; }
+
+/* over a photo the white bars need a soft dark wash behind them; it
+   fades in and out with the wave, on whoever is talking */
+.hdl-wave { border-radius: 50%; background: rgba(0, 0, 0, 0.32); }
 
 .hdl[data-live] .hdl-person[data-talking] .hdl-wave { opacity: 1; transform: none; }
 

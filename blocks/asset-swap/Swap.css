@@ -47,10 +47,13 @@
 .swp-amount {
   font-size: 26px;
   font-weight: 500;
-  letter-spacing: -0.03em;
+  /* proportional, no tracking, as Traffic and Context (2026-11-19): tabular
+     figures gave the 1 an 8's width and "127.496" read gappy; 0, as -0.02
+     read tight */
+  letter-spacing: 0em;
   line-height: 30px;
   margin-bottom: 2px;
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: proportional-nums;
   white-space: nowrap;}
 
 .swp-fiat {

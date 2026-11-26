@@ -4,7 +4,7 @@ import { DotsThree, Microphone, MicrophoneSlash } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "framer-motion";
 
 /* ══ Huddle ════════════════════════════════════════════════
-   A voice room with three people in it. Join and your orb pops in
+   A voice room with two people in it. Join and your orb pops in
    beside theirs, the others shuffle up to make room, and a sound
    wave plays in the middle of whoever is talking; leave and the room closes up
    again.
@@ -45,12 +45,15 @@ function hsl(h: number, s: number, l: number): string {
   return `#${f(0)}${f(8)}${f(4)}`;
 }
 
+/* two people by default, the sign-up sheet's own candid photos (the
+   same files public/crowd serves there); you join as a peach orb
+   (2026-11-21) */
 const ROOM = [
-  { name: "Ines", hue: 268 },
-  { name: "Tom", hue: 28 },
-  { name: "Aiko", hue: 168 },
+  { name: "Ines", face: "/crowd/four.jpg" },
+  { name: "Tom", face: "/crowd/one.jpg" },
 ];
-const YOU = { name: "You", hue: 214 };
+const YOU = { name: "You", face: "" };
+const ME = ROOM.length;   // your index in the row once you are in
 
 export function Huddle() {
   const [joined, setJoined] = useState(false);
@@ -64,18 +67,18 @@ export function Huddle() {
   useEffect(() => {
     if (!joined) { setTalking(0); setMuted(false); return; }
     const id = window.setInterval(() => setTalking((t) => {
-      let n = (t + 1 + Math.floor(Math.random() * 2)) % 4;
-      if (mutedRef.current && n === 3) n = 0;
+      let n = (t + 1 + Math.floor(Math.random() * 2)) % (ME + 1);
+      if (mutedRef.current && n === ME) n = 0;
       return n;
     }), 1700);
     return () => window.clearInterval(id);
   }, [joined]);
-  useEffect(() => { if (muted && talking === 3) setTalking(0); }, [muted, talking]);
+  useEffect(() => { if (muted && talking === ME) setTalking(0); }, [muted, talking]);
 
   return (
     <div className="hdl" data-live={joined || undefined} style={{ width: 300 }}>
       <div className="hdl-head">
-        <span className="hdl-title">Design huddle</span>
+        <span className="hdl-title">Huddle</span>
       </div>
       <div className="hdl-room">
         <AnimatePresence initial={false} mode="popLayout">
@@ -83,6 +86,11 @@ export function Huddle() {
             <motion.div
               key={p.name}
               layout
+              /* only when someone joins or leaves (2026-11-22). Left to
+                 measure on every render, a block that MOVED (the overlay's
+                 panel folding, the wall reflowing) read as the people
+                 moving, and they sprang after it on their own */
+              layoutDependency={joined}
               className="hdl-person"
               data-talking={talking === i || undefined}
               data-muted={(p === YOU && muted) || undefined}
@@ -92,7 +100,9 @@ export function Huddle() {
               transition={{ type: "spring", stiffness: 500, damping: 18 }}
             >
               <span className="hdl-orb">
-                <GradientAvatar seed={p.name} size={52} radius={0} colors={family(p.hue)} />
+                {p.face
+                  ? <img src={p.face} alt="" width={52} height={52} draggable={false} />
+                  : <GradientAvatar seed={p.name} size={52} radius={0} colors={family(22)} />}
                 {/* a small sound wave in the middle of whoever is talking */}
                 <span className="hdl-wave" aria-hidden="true"><i /><i /><i /><i /></span>
               </span>

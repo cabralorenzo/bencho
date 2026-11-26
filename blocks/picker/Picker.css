@@ -93,6 +93,8 @@
 
 .pik-face img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
+.pik-face .pik-orb { width: 100%; height: 100%; display: block; }
+
 /* with no faces the rail collapses to nothing but the pill's gap
    still sits in front of the word; pull it back so the text is
    inset 12 from the edge, matching the pill's own right padding */

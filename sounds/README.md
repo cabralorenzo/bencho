@@ -1,6 +1,6 @@
 # Sounds
 
-24 interface sounds, synthesised in the browser with the Web Audio API. No audio files and no dependencies: [`sounds.ts`](sounds.ts) is the whole thing.
+30 interface sounds, synthesised in the browser with the Web Audio API. No audio files and no dependencies: [`sounds.ts`](sounds.ts) is the whole thing.
 
 **[Hear them on bencho.dev →](https://bencho.dev/sounds)**
 
@@ -16,6 +16,12 @@ Browsers only start audio after a user gesture, so call `play()` from a click, a
 
 | Name | Call | Family |
 | --- | --- | --- |
+| Glint | `play("glint")` | Selection |
+| Clack | `play("clack")` | Selection |
+| Dial | `play("dial")` | Progress |
+| Crinkle | `play("crinkle")` | Actions |
+| Toss | `play("toss")` | Movement |
+| Till | `play("till")` | Feedback |
 | Paid | `play("paid")` | Feedback |
 | Landed | `play("landed")` | Feedback |
 | Plop | `play("plop")` | Actions |
@@ -43,4 +49,4 @@ Browsers only start audio after a user gesture, so call `play()` from a click, a
 
 Each sound is a short list of notes in `SOUNDS`. Change a number and you have a new sound; `schedule()` also renders into an `OfflineAudioContext` if you want a file.
 
-[Bencho Pro](https://bencho.dev/pricing) has 140+ more, layering and WAV downloads.
+[Bencho Pro](https://bencho.dev/pricing) has 180+ more, layering and WAV downloads.

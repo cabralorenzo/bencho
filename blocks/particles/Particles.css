@@ -10,5 +10,5 @@
 .ptc-canvas {
   display: block;
   color: var(--fill-on, var(--ink));
-  cursor: crosshair;
+  cursor: pointer;
   touch-action: none;}

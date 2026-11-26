@@ -94,7 +94,8 @@ export function StackedBars({
   gap?: number;
 }) {
   const n = Math.max(2, Math.round(bars));
-  const [mode, setMode] = useState<Mode>("Day");
+  /* Week first (2026-11-19): the steadier, fuller view to open on */
+  const [mode, setMode] = useState<Mode>("Week");
   const [at, setAt] = useState<number | null>(null);
   const [seen, setSeen] = useState(false);
   const root = useRef<HTMLDivElement | null>(null);
@@ -198,8 +199,9 @@ export function StackedBars({
     >
       <div className="stb-head">
         <div className="stb-titles">
+          {/* the "Last 20 days" line is gone (2026-11-19): the axis dates
+              and Day / Week already say the span */}
           <div className="stb-title">Traffic</div>
-          <div className="stb-sub">Last {n} {mode === "Day" ? "days" : "weeks"}</div>
         </div>
         <div className="stb-seg-ctl" data-mode={mode} role="tablist">
           <span className="stb-thumb" aria-hidden />

@@ -63,8 +63,8 @@
    the radius is a disc, and a border going to 0 is the hole */
 .lk-bloom {
   position: absolute;
-  left: -17px;
-  top: -17px;
+  left: -18px;
+  top: -18px;
   width: 34px;
   height: 34px;
   box-sizing: border-box;

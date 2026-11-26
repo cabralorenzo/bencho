@@ -2,7 +2,7 @@
 
 <p align="center"><a href="https://bencho.dev"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/readme/brand-dark.png"><img src="assets/readme/brand.png" alt="bencho.dev" width="240"></picture></a></p>
 
-<p align="center">Interactive React blocks and interface sounds.<br><strong>48 blocks and 24 sounds</strong>, free and MIT licensed.</p>
+<p align="center">Interactive React blocks and interface sounds.<br><strong>43 blocks and 30 sounds</strong>, free and MIT licensed.</p>
 
 <p align="center">
   <a href="https://bencho.dev"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/readme/pill-blocks-dark.svg"><img src="assets/readme/pill-blocks.svg" alt="Blocks" height="34"></picture></a>
@@ -17,7 +17,7 @@
 
 <p align="center">Sponsored by</p>
 
-<p align="center"><a href="https://mobbin.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/readme/sponsor-mobbin-dark.png"><img src="assets/readme/sponsor-mobbin.png" alt="Mobbin" width="140"></picture></a></p>
+<p align="center"><a href="https://www.mobbin.com/?via=bencho"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/readme/sponsor-mobbin-dark.png"><img src="assets/readme/sponsor-mobbin.png" alt="Mobbin" width="140"></picture></a></p>
 
 ## Take a block
 
@@ -59,7 +59,7 @@ import { play } from "./sounds/sounds";
 button.addEventListener("click", () => play("tick"));
 ```
 
-24 sounds made with the Web Audio API, in one file with no audio assets. The list is in [`sounds/`](sounds).
+30 sounds made with the Web Audio API, in one file with no audio assets. The list is in [`sounds/`](sounds).
 
 ## See them all
 
@@ -72,35 +72,12 @@ The playground puts every block and sound on one page.
 
 ## The shelf
 
-### Hover
-
-- **[ASCII wake](blocks/ascii-wake)** — A cube drawn in ink dots: the pointer drags a wake of characters through it that thicken under the hand and cool back to dots behind it, and a press sends a ring out. [Try ASCII wake live](https://bencho.dev/blocks/ascii-wake)
-- **[Stacked bars](blocks/stacked-bars)** — A month of visits as stacked bars; run along them and one day is ringed while a tooltip glides beside it, and Day / Week regrows the bars. [Try Stacked bars live](https://bencho.dev/blocks/stacked-bars)
-- **[Context meter](blocks/context-meter)** — A context window as one stacked bar, or a field of dots. Point at a kind to light it; Compact squeezes the chat down with a sound to match. [Try Context meter live](https://bencho.dev/blocks/context-meter)
-- **[Card stack](blocks/card-stack)** — A small deck of photos that fans out as you reach it. Hover to draw a card up, click one to flip it into the middle, and click away to put it back on top. [Try Card stack live](https://bencho.dev/blocks/card-stack)
-- **[Toast stack](blocks/toast-stack)** — Three toasts stacked at the edge, the two behind peeking out above the front one; point at them and they spring apart into a list. [Try Toast stack live](https://bencho.dev/blocks/toast-stack)
-- **[Emoji reactions](blocks/emoji-reactions)** — Press the button and the message turns into a pill of emoji; pick one and it flies down to its reaction chip as the count rolls up. [Try Emoji reactions live](https://bencho.dev/blocks/emoji-reactions)
-- **[Heat map](blocks/heat-word)** — Dots that melt into a heat map under your cursor; press for the next shape. [Try Heat map live](https://bencho.dev/blocks/heat-word)
-- **[Eye tracker](blocks/eye-tracker)** — Two eyes on a soft cube that turn to follow your cursor around the block. [Try Eye tracker live](https://bencho.dev/blocks/eye-tracker)
-- **[Particles](blocks/particles)** — Dots scatter from your pointer and spring home; press for a shockwave. [Try Particles live](https://bencho.dev/blocks/particles)
-- **[Image accordion](blocks/image-accordion)** — Hover a photo and it opens while its neighbours give way around it. [Try Image accordion live](https://bencho.dev/blocks/image-accordion)
-- **[Action node](blocks/action-node)** — An automation step card with its controls folded into the corner. [Try Action node live](https://bencho.dev/blocks/action-node)
-- **[Magnifying dock](blocks/dock)** — A dock whose icons swell toward your cursor, the nearest growing most. [Try Magnifying dock live](https://bencho.dev/blocks/dock)
-- **[Escape button](blocks/escape)** — A button that slides away from your cursor, and then gives up. [Try Escape button live](https://bencho.dev/blocks/escape)
-- **[Tilt card](blocks/tilt)** — A photo card that sinks under your pointer instead of rising to meet it. [Try Tilt card live](https://bencho.dev/blocks/tilt)
-
-### Swipe
-
-- **[Card swap](blocks/card-swap)** — A stack of photo cards in depth: press the front card or fling it and it goes straight to the back while the rest step forward, or switch Auto on to have it swap by itself. [Try Card swap live](https://bencho.dev/blocks/card-swap)
-- **[Carousel](blocks/carousel)** — Cards on a turntable that drift, lean under your pointer and swipe round. [Try Carousel live](https://bencho.dev/blocks/carousel)
-
 ### Press
 
+- **[Huddle](blocks/huddle)** — A voice room with two people in it. Join and your blue orb pops in while the others shuffle up, and a sound wave plays over whoever is talking. [Try Huddle live](https://bencho.dev/blocks/huddle)
 - **[Asset swap](blocks/asset-swap)** — Flip the arrow to reverse the swap; tap a coin to pick another. [Try Asset swap live](https://bencho.dev/blocks/asset-swap)
-- **[Huddle](blocks/huddle)** — A voice room with three people in it. Join and your orb pops in while the others shuffle up, and a ring breathes round whoever is talking. [Try Huddle live](https://bencho.dev/blocks/huddle)
 - **[Like](blocks/like)** — Press the heart and it pops with a burst while the count rolls up a digit. [Try Like live](https://bencho.dev/blocks/like)
 - **[Voice note](blocks/voice-note)** — Hold to record a waveform, slide left to bin it, let go to play it back. [Try Voice note live](https://bencho.dev/blocks/voice-note)
-- **[Dynamic island](blocks/dynamic-island)** — A live timer in a black pill: press it to grow into the full activity, and back again. [Try Dynamic island live](https://bencho.dev/blocks/dynamic-island)
 - **[Generate](blocks/generate)** — Press Generate and an image resolves under glass, broad shapes first. [Try Generate live](https://bencho.dev/blocks/generate)
 - **[Step player](blocks/step-player)** — Press play and each step fills as a bar, then eases on to the next dot. [Try Step player live](https://bencho.dev/blocks/step-player)
 - **[Todo tower](blocks/todo-tower)** — A to-do list stacked like bricks; take one out and the rest come down. [Try Todo tower live](https://bencho.dev/blocks/todo-tower)
@@ -111,11 +88,30 @@ The playground puts every block and sound on one page.
 - **[Search](blocks/seek)** — Press the search icon and it opens into the field as one object. [Try Search live](https://bencho.dev/blocks/seek)
 - **[Create menu](blocks/liq-create)** — Press the pill and it spreads into the create menu it was all along. [Try Create menu live](https://bencho.dev/blocks/liq-create)
 
+### Swipe
+
+- **[Card swap](blocks/card-swap)** — A stack of photo cards in depth: press the front card or fling it and it goes straight to the back while the rest step forward, or switch Auto on to have it swap by itself. [Try Card swap live](https://bencho.dev/blocks/card-swap)
+- **[Carousel](blocks/carousel)** — Cards on a turntable that drift, lean under your pointer and swipe round. [Try Carousel live](https://bencho.dev/blocks/carousel)
+
+### Hover
+
+- **[Stacked bars](blocks/stacked-bars)** — A month of visits as stacked bars; run along them and one day is ringed while a tooltip glides beside it, and Day / Week regrows the bars. [Try Stacked bars live](https://bencho.dev/blocks/stacked-bars)
+- **[ASCII wake](blocks/ascii-wake)** — A cube drawn in ink dots: the pointer drags a wake of characters through it that thicken under the hand and cool back to dots behind it, and a press sends a ring out. [Try ASCII wake live](https://bencho.dev/blocks/ascii-wake)
+- **[Context meter](blocks/context-meter)** — A context window as one stacked bar, or a field of dots. Point at a kind to light it; Compact squeezes the chat down with a sound to match. [Try Context meter live](https://bencho.dev/blocks/context-meter)
+- **[Toast stack](blocks/toast-stack)** — Three toasts stacked at the edge, the two behind peeking out above the front one; point at them and they spring apart into a list. [Try Toast stack live](https://bencho.dev/blocks/toast-stack)
+- **[Emoji reactions](blocks/emoji-reactions)** — Press the button and the message turns into a pill of emoji; pick one and it flies down to its reaction chip as the count rolls up. [Try Emoji reactions live](https://bencho.dev/blocks/emoji-reactions)
+- **[Heat map](blocks/heat-word)** — Dots that melt into a heat map under your cursor; press for the next shape. [Try Heat map live](https://bencho.dev/blocks/heat-word)
+- **[Eye tracker](blocks/eye-tracker)** — Two eyes on a soft cube that turn to follow your cursor around the block. [Try Eye tracker live](https://bencho.dev/blocks/eye-tracker)
+- **[Particles](blocks/particles)** — Dots scatter from your pointer and spring home; press for a shockwave. [Try Particles live](https://bencho.dev/blocks/particles)
+- **[Image accordion](blocks/image-accordion)** — Hover a photo and it opens while its neighbours give way around it. [Try Image accordion live](https://bencho.dev/blocks/image-accordion)
+- **[Action node](blocks/action-node)** — An automation step card with its controls folded into the corner. [Try Action node live](https://bencho.dev/blocks/action-node)
+- **[Magnifying dock](blocks/dock)** — A dock whose icons swell toward your cursor, the nearest growing most. [Try Magnifying dock live](https://bencho.dev/blocks/dock)
+- **[Tilt card](blocks/tilt)** — A photo card that sinks under your pointer instead of rising to meet it. [Try Tilt card live](https://bencho.dev/blocks/tilt)
+
 ### Slide
 
 - **[Wake slider](blocks/wake-slider)** — A range made of thin bars with no thumb; drag fast and the bars you sweep past spring up in a wake behind the hand. [Try Wake slider live](https://bencho.dev/blocks/wake-slider)
 - **[Time scrubber](blocks/time-scrubber)** — Drag the ruler to set a time; fling it and it coasts to the nearest step. [Try Time scrubber live](https://bencho.dev/blocks/time-scrubber)
-- **[Slosh slider](blocks/slosh)** — A slider whose fill has weight: drag fast and it sloshes past the handle. [Try Slosh slider live](https://bencho.dev/blocks/slosh)
 
 ### Drag
 
@@ -124,7 +120,6 @@ The playground puts every block and sound on one page.
 - **[Folding bill](blocks/folding-bill)** — A bill you can grab, drag and fold; plain or with the dollar print. [Try Folding bill live](https://bencho.dev/blocks/folding-bill)
 - **[Image compare](blocks/image-compare)** — Drag the line to compare two pictures; flick it and it glides to the edge. [Try Image compare live](https://bencho.dev/blocks/image-compare)
 - **[Signature pad](blocks/signature)** — Sign it; the ink thins with speed, and Clear rewinds it stroke by stroke. [Try Signature pad live](https://bencho.dev/blocks/signature)
-- **[Upload dropzone](blocks/upload-dropzone)** — Drag a file into the box to upload it; one that is too big gets refused. [Try Upload dropzone live](https://bencho.dev/blocks/upload-dropzone)
 - **[Glass bubble](blocks/glass-bubble)** — Drag a ball of glass over a photo and watch it bend the picture beneath. [Try Glass bubble live](https://bencho.dev/blocks/glass-bubble)
 - **[Slide to confirm](blocks/slide-confirm)** — Push the handle across; past the mark it takes over and finishes itself. [Try Slide to confirm live](https://bencho.dev/blocks/slide-confirm)
 - **[Pull to refresh](blocks/pull)** — Pull the card down and it stretches; let go past the line to refresh. [Try Pull to refresh live](https://bencho.dev/blocks/pull)
@@ -143,7 +138,7 @@ The playground puts every block and sound on one page.
 
 ## The rest of the bench
 
-This is a selection. [Bencho Pro](https://bencho.dev/pricing) opens all 180+ blocks and 140+ sounds, with full source, sound layering and downloads, an unlimited Bench to arrange them on, and the [Bencho MCP](https://bencho.dev/mcp) for Claude Code, Cursor and Codex. Everything added later comes with it.
+This is a selection. [Bencho Pro](https://bencho.dev/pricing) opens all 180+ blocks and 180+ sounds, with full source code, downloads, an unlimited Bench to arrange them on, and the [Bencho MCP](https://bencho.dev/mcp) for Claude Code, Cursor and Codex. Everything added later comes with it.
 
 ## Licence
 

@@ -3,7 +3,7 @@
   position: relative;
   overflow: hidden;
   touch-action: none;
-  cursor: ew-resize;
+  cursor: pointer;
   outline: none;
   user-select: none;
   -webkit-user-select: none;
@@ -24,6 +24,9 @@
    register, or the x-ray stops lining up with the picture */
 .cmp-before { position: absolute; inset: 0; }
 
+/* a side made of anything, not a photograph (Bento's slop tile) */
+.cmp-layer { position: absolute; inset: 0; overflow: hidden; }
+
 .cmp-tag {
   position: absolute;
   top: 12px;
@@ -41,6 +44,11 @@
   letter-spacing: 0em;}
 
 .cmp-tag.cmp-right { left: auto; right: 12px; }
+
+/* a label the line has reached is gone: a quick cut, not a fade along the drag */
+.cmp-tag { transition: opacity 120ms ease; }
+
+.cmp-tag[data-off] { opacity: 0; }
 
 /* the line is drawn, so it can bend: a 2px white curve with a
    soft glow, over the whole block */

@@ -1,5 +1,5 @@
 /* ── Bencho sounds ─────────────────────────────────────────
-   24 interface sounds from https://bencho.dev/sounds, synthesised with the
+   30 interface sounds from https://bencho.dev/sounds, synthesised with the
    Web Audio API: no files, no dependencies, a few hundred bytes
    each. Every sound is a list of notes — an oscillator or a burst
    of filtered noise, a lowpass, and an envelope.
@@ -29,6 +29,51 @@ export type Note = {
 };
 
 export const SOUNDS = {
+  /* Glint · Selection */
+  glint: [
+    { hz: 2270, to: 2080, ms: 30, gain: 0.04, atk: 1, glide: 10 },
+    { hz: 3370, to: 3100, ms: 26, gain: 0.032, atk: 1 },
+    { hz: 4200, ms: 18, gain: 0.04, noise: "bandpass", q: 1.2, atk: 1 },
+    { hz: 520, to: 420, ms: 30, gain: 0.0096, atk: 1 },
+  ],
+  /* Clack · Selection */
+  clack: [
+    { hz: 2600, ms: 5, gain: 0.19, noise: "bandpass", q: 0.5, atk: 0.5 },
+    { hz: 75, to: 48, ms: 48, gain: 0.071, at: 2, atk: 2, glide: 12 },
+    { hz: 55, ms: 48, gain: 0.026, at: 3, atk: 3 },
+    { hz: 2800, ms: 5, gain: 0.19, noise: "bandpass", q: 0.5, at: 106, atk: 0.5 },
+    { hz: 75, to: 48, ms: 48, gain: 0.077, at: 108, atk: 2, glide: 12 },
+    { hz: 55, ms: 48, gain: 0.03, at: 110, atk: 3 },
+  ],
+  /* Dial · Progress */
+  dial: [
+    { hz: 900, to: 1800, glide: 600, ms: 718, gain: 0.076, noise: "bandpass", q: 2, atk: 150, lin: true },
+    { hz: 200, to: 500, glide: 600, ms: 744, gain: 0.057, noise: "lowpass", q: 0.7, atk: 150, lin: true },
+    { hz: 2600, to: 3600, glide: 600, ms: 737, gain: 0.019, noise: "bandpass", q: 4, atk: 150, lin: true },
+  ],
+  /* Crinkle · Actions */
+  crinkle: [
+    { hz: 3400, ms: 22, gain: 0.05, at: 0, q: 2, noise: "bandpass", atk: 1 },
+    { hz: 2600, ms: 18, gain: 0.04, at: 34, q: 2, noise: "bandpass", atk: 1 },
+    { hz: 4200, ms: 16, gain: 0.035, at: 61, q: 2, noise: "bandpass", atk: 1 },
+    { hz: 3000, ms: 24, gain: 0.045, at: 92, q: 2, noise: "bandpass", atk: 1 },
+  ],
+  /* Toss · Movement */
+  toss: [
+    { hz: 1100, to: 520, ms: 170, gain: 0.03, q: 0.8, noise: "bandpass", atk: 40, lin: true },
+  ],
+  /* Till · Feedback */
+  till: [
+    { hz: 45, to: 32, ms: 135, gain: 0.05, atk: 70, lin: true },
+    { hz: 3200, ms: 110, gain: 0.04, noise: "bandpass", q: 0.6, at: 50, atk: 25, lin: true },
+    { hz: 5000, ms: 600, gain: 0.012, noise: "bandpass", q: 2, at: 100, atk: 10 },
+    { hz: 5300, ms: 1000, gain: 0.011, at: 95, atk: 4 },
+    { hz: 5478, ms: 750, gain: 0.0084, at: 95, atk: 4 },
+    { hz: 4160, ms: 1500, gain: 0.0096, at: 115, atk: 4 },
+    { hz: 4370, ms: 1400, gain: 0.009, at: 115, atk: 4 },
+    { hz: 3735, ms: 1200, gain: 0.0048, at: 300, atk: 40 },
+    { hz: 3095, ms: 1200, gain: 0.0042, at: 400, atk: 40 },
+  ],
   /* Paid · Feedback */
   paid: [
     { hz: 587, ms: 170, gain: 0.05, wave: "sine", cut: 2600, atk: 5 },

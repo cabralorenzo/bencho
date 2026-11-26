@@ -37,9 +37,22 @@ export function Compare({
   /* show the Before and After tags */
   labels = true,
   corner = 20,
+  /* reuse it with anything on the two sides, not only the two
+     photographs (2026-11-21, the Blocks page's AI-slop tile): any
+     node fills each side, and the frame takes its own size */
+  before,
+  after,
+  w = W,
+  h = H,
+  tags = ["Before", "After"],
 }: {
   labels?: boolean;
   corner?: number;
+  before?: React.ReactNode;
+  after?: React.ReactNode;
+  w?: number;
+  h?: number;
+  tags?: [string, string];
 } = {}) {
   const [p, setP] = useState(0.5);
   const [bend, setBend] = useState(0);
@@ -71,7 +84,7 @@ export function Compare({
       e.v += ((cur.current - e.x) * 620 - e.v * 44) * dt;
       e.x += e.v * dt;
       setP(cur.current);
-      setBend(clamp((cur.current - e.x) * W * 0.5, -9, 9));
+      setBend(clamp((cur.current - e.x) * w * 0.5, -9, 9));
       const still = target.current === null && Math.abs(cur.current - e.x) < 0.0006 && Math.abs(e.v) < 0.002;
       if (still) { e.x = cur.current; e.v = 0; setBend(0); raf.current = 0; return; }
       raf.current = requestAnimationFrame(step);
@@ -92,10 +105,10 @@ export function Compare({
   const r = clamp(corner, 0, 28);
   /* the line as a curve: ends at x - bend, and a control point at
      x + bend so the curve passes exactly through the knob */
-  const x = p * W;
+  const x = p * w;
   const top = x - bend;
-  const curve = `M ${top.toFixed(2)} 0 Q ${(x + bend).toFixed(2)} ${H / 2} ${top.toFixed(2)} ${H}`;
-  const cut = `path("M 0 0 L ${top.toFixed(2)} 0 Q ${(x + bend).toFixed(2)} ${H / 2} ${top.toFixed(2)} ${H} L 0 ${H} Z")`;
+  const curve = `M ${top.toFixed(2)} 0 Q ${(x + bend).toFixed(2)} ${h / 2} ${top.toFixed(2)} ${h}`;
+  const cut = `path("M 0 0 L ${top.toFixed(2)} 0 Q ${(x + bend).toFixed(2)} ${h / 2} ${top.toFixed(2)} ${h} L 0 ${h} Z")`;
 
   return (
     <div
@@ -108,7 +121,7 @@ export function Compare({
       aria-valuemin={0}
       aria-valuemax={100}
       aria-valuenow={Math.round(p * 100)}
-      style={{ width: W, height: H, borderRadius: r, "--p": p } as React.CSSProperties}
+      style={{ width: w, height: h, borderRadius: r, "--p": p } as React.CSSProperties}
       onPointerDown={(e) => {
         try { e.currentTarget.setPointerCapture(e.pointerId); } catch { /* a scripted pointer */ }
         const v = at(e.clientX);
@@ -143,18 +156,24 @@ export function Compare({
       }}
     >
       {/* the edit underneath, drifting a little with the line */}
-      <img className="cmp-img cmp-after" src={AFTER} alt="" draggable={false} />
+      {after
+        ? <div className="cmp-layer">{after}</div>
+        : <img className="cmp-img cmp-after" src={AFTER} alt="" draggable={false} />}
       {/* the raw shot on top, cut off at the line */}
       <div className="cmp-before" style={{ clipPath: cut }}>
-        <img className="cmp-img" src={BEFORE} alt="" draggable={false} />
+        {before
+          ? <div className="cmp-layer">{before}</div>
+          : <img className="cmp-img" src={BEFORE} alt="" draggable={false} />}
       </div>
       {labels && (
         <>
-          <span className="cmp-tag" style={{ opacity: clamp((p - 0.14) * 4, 0, 1) }}>Before</span>
-          <span className="cmp-tag cmp-right" style={{ opacity: clamp((0.86 - p) * 4, 0, 1) }}>After</span>
+          {/* on or off, not a fade (2026-11-20): each label goes the moment
+              the line reaches it, and comes back once the line has passed */}
+          <span className="cmp-tag" data-off={p < 0.3 || undefined}>{tags[0]}</span>
+          <span className="cmp-tag cmp-right" data-off={p > 0.7 || undefined}>{tags[1]}</span>
         </>
       )}
-      <svg className="cmp-line" width={W} height={H} viewBox={`0 0 ${W} ${H}`} aria-hidden="true">
+      <svg className="cmp-line" width={w} height={h} viewBox={`0 0 ${w} ${h}`} aria-hidden="true">
         <path d={curve} />
       </svg>
       <span className="cmp-grip" style={{ left: x }}>
